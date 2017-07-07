@@ -1,0 +1,73 @@
+body {
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.graphicsCanvas {
+  width: 100%;
+}
+
+.graphicsCanvas > canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.controls {
+  display: hidden;
+  opacity: 0;
+}
+
+.leftControl, .rightControl {
+  position: absolute;
+  bottom: 50px;
+}
+
+.leftControl {
+  left: 50px;
+}
+
+.rightControl {
+  left: 200px;
+}
+
+.leftControlBlock {
+  float: left;
+  background-color: #FF0000;
+  width: 50px;
+  height: 100px;
+}
+
+.leftControlArrow {
+  float: left;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent #FF0000 transparent transparent;
+  border-width: 50px 50px 50px 0;
+}  
+
+.rightControlBlock {
+  float: left;
+  background-color: #FF0000;
+  width: 50px;
+  height: 100px;
+}
+
+.rightControlArrow {
+  float: left;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent transparent #FF0000;
+  border-width: 50px 0 50px 50px;
+}
+
+.fireControl {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  background-color: #FF2200;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
