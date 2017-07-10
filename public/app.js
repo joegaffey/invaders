@@ -1,6 +1,7 @@
 // import PIXI from 'pixi.js';
 
 var app = new PIXI.Application();
+app.renderer = PIXI.autoDetectRenderer(800, 600, { transparent: true });
 
 var paused = false;
 
