@@ -51,7 +51,7 @@ cells.reset = function() {
 
 function checkCellHit(bullet) {
   cells.forEach(function(cell, i) {
-    if(isIntersecting(bullet, cell)) {
+    if(bullet && cell && isIntersecting(bullet, cell)) {
       bullet.ticker.stop();
       bullet.destroy(); 
       cell.hit(i);
