@@ -54,6 +54,7 @@ function Swarm(width, height, rows) {
     this.enemies.splice(0, this.enemies.length);
     this.yPos = 0;
     this.xPos = 0;
+    swarm = new Swarm(app.renderer.width, app.renderer.height, Props.ENEMY_ROWS);
   }
 
   this.move = function() {

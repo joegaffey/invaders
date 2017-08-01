@@ -1,5 +1,5 @@
 var app = new PIXI.Application();
-app.renderer = PIXI.autoDetectRenderer(Props.HRES, Props.VRES, { transparent: true });
+app.renderer = PIXI.autoDetectRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
 app.paused = false;
 
 document.addEventListener('visibilitychange', function() {
@@ -16,12 +16,12 @@ function setSize() {
   var w = window.innerWidth;    
   var h = window.innerHeight;     
   if(w >= h) {
-    app.renderer.view.style.width = h * Props.RATIO + 'px';
+    app.renderer.view.style.width = h * Props.STAGE_RATIO + 'px';
     app.renderer.view.style.height = h + 'px';     
   }
   else {
     app.renderer.view.style.width = w + 'px';
-    app.renderer.view.style.height = w / Props.RATIO + 'px';     
+    app.renderer.view.style.height = w / Props.STAGE_RATIO + 'px';     
   }
 }
 setSize();
@@ -46,8 +46,9 @@ setInterval(function() {
     swarm.enemies[Math.floor(Math.random() * swarm.enemies.length)].shoot();
 }, Props.SWARM_SHOOT_INTERVAL);
 
+var grid = new Grid();
+
 app.reset = function() {
   swarm.reset();
-  swarm = new Swarm(app.renderer.width, app.renderer.height, Props.ENEMY_ROWS);
-  cells.reset();
+  grid.reset();
 }
