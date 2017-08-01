@@ -1,23 +1,8 @@
 var cells = [];
 cells.wide = 5;
 cells.deep = 4;  
-initCells();
 
-function initCells() {
-  for(var i = 0; i < cells.wide; i++) {
-    for(var j = 0; j < cells.deep; j++) {
-      var x = 20 + app.renderer.width / 2 - (cells.wide * 120 / 2) + (i * 120);
-      if(j % 2 == 0)
-        x += 60;
-      var y = 450 + (j * 20);
-      var cell = getCell(x, y);
-      app.stage.addChild(cell); 
-      cells.push(cell);
-    }
-  }
-}
-
-function getCell(x, y) {    
+cells.getCell = function(x, y) {    
   var cell = new PIXI.Sprite(GameGraphics.getCellGraphics());
   cell.x = x;
   cell.y = y;
@@ -41,12 +26,27 @@ function getCell(x, y) {
   return cell;
 }
 
+cells.initCells = function () {
+  for(var i = 0; i < cells.wide; i++) {
+    for(var j = 0; j < cells.deep; j++) {
+      var x = 20 + app.renderer.width / 2 - (cells.wide * 120 / 2) + (i * 120);
+      if(j % 2 == 0)
+        x += 60;
+      var y = 450 + (j * 20);
+      var cell = cells.getCell(x, y);
+      app.stage.addChild(cell); 
+      cells.push(cell);
+    }
+  }
+}
+cells.initCells();
+
 cells.reset = function() {
   cells.forEach(function(cell) {
     cell.destroy();
   });
   cells.splice(0, cells.length);
-  initCells();
+  cells.initCells();
 }
 
 function checkCellHit(bullet) {

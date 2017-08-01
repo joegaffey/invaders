@@ -1,21 +1,25 @@
-function getShip(x, y) {    
-  var ship = new PIXI.Sprite(GameGraphics.getShipGraphics());
-  ship.x = x;
-  ship.y = y;
-  ship.anchor.x = 0.5;
-  ship.anchor.y = 0.5;
-  ship.speed = 0;
-  ship.shoot = function() {
-    if(ship.loaded) {
+function Ship(x, y) {    
+  PIXI.Sprite.call(this, GameGraphics.getShipGraphics());
+  this.x = x;
+  this.y = y;
+  this.anchor.x = 0.5;
+  this.anchor.y = 0.5;
+  this.speed = 0;
+  this.direction = 1;
+  
+  this.shoot = function() {
+    if(this.loaded) {
       GameAudio.shootSound();
-      this.addBullet(ship.x, ship.y - ship.height / 2);
-      ship.loaded = false;
+      this.addBullet(this.x, this.y - this.height / 2);
+      this.loaded = false;
     }
   }
-  ship.reload = function() {
-    ship.loaded = true;
+  
+  this.reload = function() {
+    this.loaded = true;
   } 
-  ship.addBullet = function(x, y) {    
+  
+  this.addBullet = function(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());
     bullet.x = x;
     bullet.y = y;
@@ -35,8 +39,21 @@ function getShip(x, y) {
     bullet.ticker.start();
     app.stage.addChild(bullet);
   }
-  app.ticker.add(function() {
-    ship.x += ship.speed;
-  });
-  return ship;
+  
+  this.checkHit = function(bullet) {
+    if(isIntersecting(bullet, this)) {
+      bullet.ticker.stop();
+      bullet.destroy(); 
+      this.hit();
+      return;
+    }
+  }
+
+  this.hit = function() {
+    ship.speed = 0;
+    alert('Game over Man! Game Over!');
+    app.reset();
+  }
 }
+
+Ship.prototype = Object.create(PIXI.Sprite.prototype);
