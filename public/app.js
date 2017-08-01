@@ -48,6 +48,9 @@ setInterval(function() {
 
 var grid = new Grid();
 
+var mother = new Mother(app.renderer.width / 2, 40);
+app.stage.addChild(mother);
+
 app.reset = function() {
   swarm.reset();
   grid.reset();

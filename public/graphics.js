@@ -44,6 +44,22 @@ GameGraphics.getEnemyGraphics = function() {
   return graphics.generateTexture();
 }
 
+GameGraphics.getMotherGraphics = function() {
+  var graphics = new PIXI.Graphics();
+  graphics.beginFill(0xFF0000);
+  graphics.moveTo(0,0);
+  graphics.lineTo(20, 10);
+  graphics.lineTo(100, 10);
+  graphics.lineTo(120, 0);
+  graphics.lineTo(100, -10);
+  graphics.lineTo(20, -10);
+  graphics.lineTo(0, 0);
+  graphics.drawCircle(60, -5, 20);
+  graphics.endFill();
+  graphics.boundsPadding = 0;
+  return graphics.generateTexture();
+}
+
 GameGraphics.getCellGraphics = function() {
   var graphics = new PIXI.Graphics();
   graphics.beginFill(0x33BB33);

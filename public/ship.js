@@ -33,8 +33,10 @@ function Ship(x, y) {
          bullet.ticker.stop();
          bullet.destroy(); 
       }
-      else
+      else {
         swarm.checkHit(bullet);
+        mother.checkHit(bullet);
+      }
     });
     bullet.ticker.start();
     app.stage.addChild(bullet);
@@ -50,6 +52,7 @@ function Ship(x, y) {
   }
 
   this.hit = function() {
+    GameAudio.explosionSound();
     ship.speed = 0;
     alert(Props.DEATH_MESSAGE);
     app.reset();

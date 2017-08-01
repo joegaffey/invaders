@@ -1,5 +1,5 @@
-function Enemy(x, y) {
-  PIXI.Sprite.call(this, GameGraphics.getEnemyGraphics());
+function Mother(x, y) {
+  PIXI.Sprite.call(this, GameGraphics.getMotherGraphics());
   this.x = x;
   this.y = y;
   this.anchor.x = 0.5;
@@ -7,11 +7,12 @@ function Enemy(x, y) {
   this.hits = 0;
   
   this.hit = function() {
+    GameAudio.motherHitSound();
     this.hits++;
-    if(this.hits == 5) {
-      GameAudio.alienHitSound();
-      this.ticker.stop();
+    if(this.hits == Props.MOTHER_MAX_HITS) {
+      //this.ticker.stop();
       this.destroy(); 
+      GameAudio.explosionSound();
       return true;
     }
     return false;
@@ -19,6 +20,15 @@ function Enemy(x, y) {
   
   this.shoot = function() {
     this.addEnemyBullet(this.x, this.y - this.height / 2);
+  }
+  
+  this.checkHit = function(bullet) {
+    if(bullet && isIntersecting(bullet, this)) {
+      bullet.ticker.stop();
+      bullet.destroy(); 
+      this.hit();
+      return;
+    }
   }
   
   this.addEnemyBullet = function(x, y) {    
@@ -43,13 +53,5 @@ function Enemy(x, y) {
     bullet.ticker.start();
     app.stage.addChild(bullet);
   }
-  
-  this.ticker = new PIXI.ticker.Ticker();
-  this.ticker.add(function() {
-    this.rotation += this.hits * Props.ENEMY_ROTATION_SPEED;
-    this.scale.x = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
-    this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
-  }.bind(this));
-  this.ticker.start();
 }
-Enemy.prototype = Object.create(PIXI.Sprite.prototype);
+Mother.prototype = Object.create(PIXI.Sprite.prototype);
