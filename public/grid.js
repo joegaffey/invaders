@@ -12,6 +12,7 @@ function Grid() {
       GameAudio.cellHitSound();
       cell.hits++;
       if(cell.hits > Props.CELL_MAX_HITS) {
+        GameAudio.explosionSound();
         cell.destroy();
         grid.removeCell(i);
       }

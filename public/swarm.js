@@ -13,7 +13,7 @@ function Swarm(width, height, rows) {
   for(var i = 0; i < this.columns; i++) {
     for(var j = 0; j < this.rows; j++) {
       var x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (i * Props.ENEMY_GAP);
-      var y = Props.ENEMY_GAP + (j * Props.ENEMY_GAP);
+      var y = Props.SWARM_TOP + (j * Props.ENEMY_GAP);
       var enemy = new Enemy(x, y);
       enemy.tint = Props.ENEMY_COLORS[j % Props.ENEMY_COLORS.length];
       this.enemies.push(enemy);
