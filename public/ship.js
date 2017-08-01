@@ -25,7 +25,7 @@ function Ship(x, y) {
     bullet.y = y;
     bullet.anchor.x = 0.5;
     bullet.anchor.y = 0.5;
-    bullet.speed = 8;
+    bullet.speed = Props.BULLET_SPEED;
     bullet.ticker = new PIXI.ticker.Ticker();
     bullet.ticker.add(function() {
       bullet.y -= bullet.speed;
@@ -51,7 +51,7 @@ function Ship(x, y) {
 
   this.hit = function() {
     ship.speed = 0;
-    alert('Game over Man! Game Over!');
+    alert(Props.DEATH_MESSAGE);
     app.reset();
   }
 }

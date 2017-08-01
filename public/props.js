@@ -1,0 +1,29 @@
+var Props = {};
+Props.RATIO = 4 / 3;
+Props.HRES = 800;
+Props.VRES = 600;
+
+Props.DEATH_MESSAGE = 'Game over Man! Game Over!';
+
+Props.SHIP_VERT_ADJUST = 30;
+Props.SHIP_SPEED = 3;
+
+Props.CELLS_WIDE = 5;
+Props.CELLS_DEEP = 4;
+Props.CELLS_TOP = 375;
+
+Props.CELL_DECAY_RATE = 0.05;
+Props.CELL_MAX_HITS = 12;
+
+Props.SWARM_H_STEP = 5;
+Props.SWARM_V_STEP = 10;
+Props.SWARM_MOVE_INTERVAL = 1000;
+Props.SWARM_SHOOT_INTERVAL = 500; 
+Props.SWARM_MAX_SHIFT = 8;
+Props.SWARM_COLUMNS_SPACE = 6;
+
+Props.ENEMY_COLORS = [0xFFAAAA, 0xAAFF00, 0x00AAFF, 0xFF00FF, 0x00FFAA];
+Props.ENEMY_GAP = 40;
+Props.ENEMY_ROWS = 5;
+
+Props.BULLET_SPEED = 8;

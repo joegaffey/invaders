@@ -1,6 +1,6 @@
 var cells = [];
-cells.wide = 5;
-cells.deep = 4;  
+cells.wide = Props.CELLS_WIDE;
+cells.deep = Props.CELLS_DEEP;  
 
 cells.getCell = function(x, y) {    
   var cell = new PIXI.Sprite(GameGraphics.getCellGraphics());
@@ -13,13 +13,13 @@ cells.getCell = function(x, y) {
   cell.hit = function(i) {
     GameAudio.cellHitSound();
     cell.hits++;
-    if(cell.hits > 12) {
+    if(cell.hits > Props.CELL_MAX_HITS) {
       cell.destroy();
       cells.splice(i, 1);
     }
     else {
-      cell.scale.x = 1 - (cell.hits * 0.05);  
-      cell.scale.y = 1 - (cell.hits * 0.05);  
+      cell.scale.x = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
+      cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
       cell.tint = cell.cellTints[cell.hits];
     }
   };

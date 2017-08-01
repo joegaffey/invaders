@@ -1,38 +1,33 @@
 function Swarm(width, height, rows) {
   
-  Swarm.hStep = 5;
-  Swarm.vStep = 10;
-  
   this.enemies = [];
   this.width = width;
   this.height = height; 
-  this.columns = Math.floor(this.width / 40) - 6;
+  this.columns = Math.floor(this.width / Props.ENEMY_GAP) - Props.SWARM_COLUMNS_SPACE;
   this.rows = rows;
   this.speed = 1;
   this.xPos = 0;
   this.yPos = 0;
-  this.maxShift = 8;
   this.direction = 1;
   
-  var enemyColors = [0xFFAAAA, 0xAAFF00, 0x00AAFF, 0xFF00FF, 0x00FFAA];
   for(var i = 0; i < this.columns; i++) {
     for(var j = 0; j < this.rows; j++) {
-      var x = 20 + this.width / 2 - (this.columns * 40 / 2) + (i * 40);
-      var y = 40 + (j * 40);
+      var x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (i * Props.ENEMY_GAP);
+      var y = Props.ENEMY_GAP + (j * Props.ENEMY_GAP);
       var enemy = getEnemy(x, y);
-      enemy.tint = enemyColors[j % 5];
+      enemy.tint = Props.ENEMY_COLORS[j % Props.ENEMY_COLORS.length];
       this.enemies.push(enemy);
       app.stage.addChild(enemy);
     }
   }
   
   this.shiftDown = function() {
-    this.yPos ++;
+    this.yPos++;
     this.enemies.forEach(function(enemy) {
-      enemy.y += Swarm.vStep;    
+      enemy.y += Props.SWARM_V_STEP;    
     });
-    if(this.yPos * Swarm.vStep > this.height - 375) {
-      alert('Game over Man! Game Over!');
+    if(this.yPos * Props.SWARM_V_STEP > this.height - Props.CELLS_TOP) {
+      alert(Props.DEATH_MESSAGE);
       app.reset();
     }
   }
@@ -40,14 +35,14 @@ function Swarm(width, height, rows) {
   this.shiftLeft = function() {
     this.xPos--;
     this.enemies.forEach(function(enemy) {
-      enemy.x -= Swarm.hStep;    
+      enemy.x -= Props.SWARM_H_STEP    
     });
   }
 
   this.shiftRight = function() {
     this.xPos++;
     this.enemies.forEach(function(enemy) {
-      enemy.x += Swarm.hStep;    
+      enemy.x += Props.SWARM_H_STEP;    
     });
   }
 
@@ -62,8 +57,8 @@ function Swarm(width, height, rows) {
   }
 
   this.move = function() {
-    if((this.direction == 1 && this.xPos > this.maxShift) || 
-       (this.direction == -1 && this.xPos < -this.maxShift)) {
+    if((this.direction == 1 && this.xPos > Props.SWARM_MAX_SHIFT) || 
+       (this.direction == -1 && this.xPos < -Props.SWARM_MAX_SHIFT)) {
       this.shiftDown();
       this.direction *= -1; 
     }
