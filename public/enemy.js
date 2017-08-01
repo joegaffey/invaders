@@ -11,6 +11,16 @@ function getEnemy(x, y) {
     enemy.scale.x = 1 - (enemy.hits * 0.1);  
     enemy.scale.y = 1 - (enemy.hits * 0.1);  
   });
+  enemy.hit = function() {
+    GameAudio.alienHitSound();
+    enemy.hits++;
+    if(enemy.hits == 5) {
+      enemy.ticker.stop();
+      enemy.destroy(); 
+      return true;
+    }
+    return false;
+  }
   enemy.shoot = function() {
     addEnemyBullet(enemy.x, enemy.y - enemy.height / 2);
   }
@@ -33,7 +43,7 @@ function addEnemyBullet(x, y) {
       bullet.destroy();
     }
     else {
-      checkShipHit(bullet, ship);
+      ship.checkHit(bullet);
       checkCellHit(bullet);
     }
   });

@@ -19,20 +19,24 @@ rightButton.addEventListener('touchend', handleRightEnd);
 
 window.addEventListener('keyup', function (e) {
   if(e.keyCode == 32) {
-    ship.loaded = true;
+    ship.reload();
     ship.shoot();
   }
-  else if (e.keyCode == 37) 
+  else if (e.keyCode === 37  && lastKey === 37) 
     ship.speed = 0;  
-  else if (e.keyCode == 39) 
+  else if (e.keyCode === 39 && lastKey === 39) 
     ship.speed = 0;
 });
 
 window.addEventListener('keydown', function (e) {
-  if (e.keyCode == 37) 
-    ship.speed = -shipSpeed; 
-  else if (e.keyCode == 39) 
+  if (e.keyCode === 37) {
+    ship.speed = -shipSpeed;
+    lastKey = e.keyCode;
+  }
+  else if (e.keyCode === 39) { 
     ship.speed = shipSpeed;
+    lastKey = e.keyCode;
+  }
 });
 
 var gp = navigator.getGamepads()[0]; 

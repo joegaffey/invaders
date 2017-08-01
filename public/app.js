@@ -12,8 +12,6 @@ document.addEventListener('visibilitychange', function() {
 var graphicsCanvas = document.querySelector('.graphicsCanvas');
 graphicsCanvas.appendChild(app.view);
 
-setSize();
-window.onresize = setSize;
 function setSize() {    
   var w = window.innerWidth;    
   var h = window.innerHeight;     
@@ -27,28 +25,30 @@ function setSize() {
     app.renderer.view.style.height = w / ratio + 'px';     
   }
 }
+setSize();
+window.onresize = setSize;
 
-var ship = getShip(app.renderer.width / 2, app.renderer.height - 30);    
+var ship = new Ship(app.renderer.width / 2, app.renderer.height - 30);    
 var shipSpeed = 3;
+app.ticker.add(function() {
+  ship.x += ship.speed;
+});
 app.stage.addChild(ship);
 
+var swarm = new Swarm(800, 600, 5);
+
+setInterval(function() { 
+  if(!app.paused && swarm.enemies.length > 0)
+    swarm.move(); 
+}, 1000 / swarm.speed);
+
+setInterval(function() { 
+  if(!app.paused && swarm.enemies.length > 0)
+    swarm.enemies[Math.floor(Math.random() * swarm.enemies.length)].shoot();
+}, 500);
 
 app.reset = function() {
   swarm.reset();
+  swarm = new Swarm(800, 600, 5);
   cells.reset();
-}
-
-function checkShipHit(bullet, ship) {
-  if(isIntersecting(bullet, ship)) {
-    bullet.ticker.stop();
-    bullet.destroy(); 
-    hitShip();
-    return;
-  }
-}
-
-function hitShip() {
-  ship.speed = 0;
-  alert('Game over Man! Game Over!');
-  app.reset();
 }
