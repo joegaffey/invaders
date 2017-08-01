@@ -44,7 +44,7 @@ function addEnemyBullet(x, y) {
     }
     else {
       ship.checkHit(bullet);
-      checkCellHit(bullet);
+      grid.checkCellHit(bullet);
     }
   });
   bullet.ticker.start();

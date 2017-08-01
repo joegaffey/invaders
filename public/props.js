@@ -1,17 +1,18 @@
 var Props = {};
-Props.RATIO = 4 / 3;
-Props.HRES = 800;
-Props.VRES = 600;
+Props.STAGE_RATIO = 4 / 3;
+Props.STAGE_HRES = 800;
+Props.STAGE_VRES = 600;
 
 Props.DEATH_MESSAGE = 'Game over Man! Game Over!';
 
 Props.SHIP_VERT_ADJUST = 30;
 Props.SHIP_SPEED = 3;
 
-Props.CELLS_WIDE = 5;
-Props.CELLS_DEEP = 4;
-Props.CELLS_TOP = 375;
+Props.GRID_WIDE = 5;
+Props.GRID_DEEP = 4;
+Props.GRID_TOP = 375;
 
+Props.CELL_TINTS = [0xFFEEEE, 0xFFDDDD, 0xFFCCCC, 0xFFBBBB, 0xFFAAAA, 0xFF9999, 0xFF8888, 0xFF6666, 0xFF5555, 0xFF4444,  0xFF3333, 0xFF2222,  0xFF1111, 0xFF0000];
 Props.CELL_DECAY_RATE = 0.05;
 Props.CELL_MAX_HITS = 12;
 
