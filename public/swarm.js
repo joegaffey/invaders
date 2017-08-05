@@ -1,27 +1,53 @@
-function Swarm(width, height, rows) {
-  
-  this.enemies = [];
-  this.width = width;
-  this.height = height; 
-  this.columns = Math.floor(this.width / Props.ENEMY_GAP) - Props.SWARM_COLUMNS_SPACE;
-  this.rows = rows;
-  this.speed = 1;
-  this.xPos = 0;
-  this.yPos = 0;
-  this.direction = 1;
-  
-  for(var i = 0; i < this.columns; i++) {
-    for(var j = 0; j < this.rows; j++) {
-      var x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (i * Props.ENEMY_GAP);
-      var y = Props.SWARM_TOP + (j * Props.ENEMY_GAP);
-      var enemy = new Enemy(x, y);
-      enemy.tint = Props.ENEMY_COLORS[j % Props.ENEMY_COLORS.length];
-      this.enemies.push(enemy);
-      app.stage.addChild(enemy);
+class Swarm {
+  constructor(width, height, rows) {  
+    this.enemies = [];
+    this.positions = [];
+    this.width = width;
+    this.height = height; 
+    this.columns = Math.floor(this.width / Props.ENEMY_GAP) - Props.SWARM_COLUMNS_MARGIN;
+    this.rows = rows;
+    this.speed = 1;
+    this.xPos = 0;
+    this.yPos = 0;
+    this.direction = 1;
+
+    for(var i = 0; i < this.columns; i++) {
+      for(var j = 0; j < this.rows; j++) {
+        var x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (i * Props.ENEMY_GAP);
+        var y = Props.SWARM_TOP + (j * Props.ENEMY_GAP);
+        var enemy = new Enemy(x, y);
+        enemy.tint = Props.ENEMY_COLORS[j % Props.ENEMY_COLORS.length];
+        this.enemies.push(enemy);
+        this.positions.push(true);
+        app.stage.addChild(enemy);
+      }
     }
   }
   
-  this.shiftDown = function() {
+  // this.addEnemy = function(x, y) {
+  //   var enemy = new Enemy(x, y);
+  //   this.positions.forEach(function(pos, i) {
+  //     if(!pos) {
+  //       this.positions[i] = true;
+  //       this.enemies.push(enemy);
+  //       app.stage.addChild(enemy);
+  //       enemy.ticker.add(function() {
+  //         enemy.y += 5;
+  //         if(enemy.y > app.renderer.height) {
+  //           enemy.ticker.stop();
+  //           var a = i % Props.ENEMY_ROWS;
+  //           var b = Math.round(i / Props.ENEMY_ROWS);            
+  //           enemy.x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (b * Props.ENEMY_GAP);
+  //           enemy.y = Props.SWARM_TOP + (a * Props.ENEMY_GAP);
+  //         }
+  //       }.bind(this));
+  //       enemy.ticker.start();
+  //       return;
+  //     } 
+  //   }.bind(this));
+  // }
+  
+  shiftDown() {
     this.yPos++;
     this.enemies.forEach(function(enemy) {
       enemy.y += Props.SWARM_V_STEP;    
@@ -32,21 +58,21 @@ function Swarm(width, height, rows) {
     }
   }
 
-  this.shiftLeft = function() {
+  shiftLeft() {
     this.xPos--;
     this.enemies.forEach(function(enemy) {
       enemy.x -= Props.SWARM_H_STEP    
     });
   }
 
-  this.shiftRight = function() {
+  shiftRight() {
     this.xPos++;
     this.enemies.forEach(function(enemy) {
       enemy.x += Props.SWARM_H_STEP;    
     });
   }
 
-  this.reset = function() {
+  reset() {
     this.enemies.forEach(function(enemy) {
       enemy.ticker.stop();
       enemy.destroy();
@@ -57,7 +83,7 @@ function Swarm(width, height, rows) {
     swarm = new Swarm(app.renderer.width, app.renderer.height, Props.ENEMY_ROWS);
   }
 
-  this.move = function() {
+  move() {
     if((this.direction == 1 && this.xPos > Props.SWARM_MAX_SHIFT) || 
        (this.direction == -1 && this.xPos < -Props.SWARM_MAX_SHIFT)) {
       this.shiftDown();
@@ -70,15 +96,17 @@ function Swarm(width, height, rows) {
     GameAudio.moveSound();
   }
 
-  this.checkHit = function(bullet) {
+  checkHit(bullet) {
     this.enemies.forEach(function(enemy, i) {
       if(bullet && enemy && isIntersecting(bullet, enemy)) {
         bullet.ticker.stop();
         bullet.destroy(); 
-        if(enemy.hit())
-          swarm.enemies.splice(i, 1);
+        if(enemy.hit()) {
+          this.enemies.splice(i, 1);
+          this.positions[i] = false;
+        }
         return;
       }
-    });
+    }.bind(this));
   }
 }

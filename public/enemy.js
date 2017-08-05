@@ -1,12 +1,22 @@
-function Enemy(x, y) {
-  PIXI.Sprite.call(this, GameGraphics.getEnemyGraphics());
-  this.x = x;
-  this.y = y;
-  this.anchor.x = 0.5;
-  this.anchor.y = 0.5;
-  this.hits = 0;
+class Enemy extends PIXI.Sprite {
+  constructor(x, y) {
+    super(GameGraphics.getEnemyGraphics());
+    this.x = x;
+    this.y = y;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.hits = 0;
+    
+    this.ticker = new PIXI.ticker.Ticker();
+    this.ticker.add(function() {
+      this.rotation += this.hits * Props.ENEMY_ROTATION_SPEED;
+      this.scale.x = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
+      this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
+    }.bind(this));
+    this.ticker.start();
+  }
   
-  this.hit = function() {
+  hit() {
     this.hits++;
     if(this.hits == 5) {
       GameAudio.alienHitSound();
@@ -17,11 +27,11 @@ function Enemy(x, y) {
     return false;
   }
   
-  this.shoot = function() {
+  shoot() {
     this.addEnemyBullet(this.x, this.y - this.height / 2);
   }
   
-  this.addEnemyBullet = function(x, y) {    
+  addEnemyBullet(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());
     bullet.x = x;
     bullet.y = y;
@@ -43,13 +53,4 @@ function Enemy(x, y) {
     bullet.ticker.start();
     app.stage.addChild(bullet);
   }
-  
-  this.ticker = new PIXI.ticker.Ticker();
-  this.ticker.add(function() {
-    this.rotation += this.hits * Props.ENEMY_ROTATION_SPEED;
-    this.scale.x = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
-    this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
-  }.bind(this));
-  this.ticker.start();
 }
-Enemy.prototype = Object.create(PIXI.Sprite.prototype);

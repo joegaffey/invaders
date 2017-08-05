@@ -1,13 +1,15 @@
-function Ship(x, y) {    
-  PIXI.Sprite.call(this, GameGraphics.getShipGraphics());
-  this.x = x;
-  this.y = y;
-  this.anchor.x = 0.5;
-  this.anchor.y = 0.5;
-  this.speed = 0;
-  this.direction = 1;
+class Ship extends PIXI.Sprite {
+  constructor(x, y) {    
+    super(GameGraphics.getShipGraphics());
+    this.x = x;
+    this.y = y;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 0;
+    this.direction = 1;
+  }
   
-  this.shoot = function() {
+  shoot() {
     if(this.loaded) {
       GameAudio.shootSound();
       this.addBullet(this.x, this.y - this.height / 2);
@@ -15,11 +17,11 @@ function Ship(x, y) {
     }
   }
   
-  this.reload = function() {
+  reload() {
     this.loaded = true;
   } 
   
-  this.addBullet = function(x, y) {    
+  addBullet(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());
     bullet.x = x;
     bullet.y = y;
@@ -42,7 +44,7 @@ function Ship(x, y) {
     app.stage.addChild(bullet);
   }
   
-  this.checkHit = function(bullet) {
+  checkHit(bullet) {
     if(isIntersecting(bullet, this)) {
       bullet.ticker.stop();
       bullet.destroy(); 
@@ -51,12 +53,10 @@ function Ship(x, y) {
     }
   }
 
-  this.hit = function() {
+  hit() {
     GameAudio.explosionSound();
     ship.speed = 0;
     alert(Props.DEATH_MESSAGE);
     app.reset();
   }
 }
-
-Ship.prototype = Object.create(PIXI.Sprite.prototype);

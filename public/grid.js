@@ -1,7 +1,10 @@
-function Grid() {
-  this.cells = [];
+class Grid {
+  constructor() {
+    this.cells = [];
+    this.initCells();
+  }
 
-  this.getCell = function(x, y) {    
+  getCell(x, y) {    
     var cell = new PIXI.Sprite(GameGraphics.getCellGraphics());
     cell.x = x;
     cell.y = y;
@@ -25,11 +28,11 @@ function Grid() {
     return cell;
   }
   
-  this.removeCell = function(i) {
+  removeCell(i) {
     this.cells.splice(i, 1);
   }
 
-  this.initCells = function () {
+  initCells() {
     for(var i = 0; i < Props.GRID_WIDE; i++) {
       for(var j = 0; j < Props.GRID_DEEP; j++) {
         var x = 20 + app.renderer.width / 2 - (Props.GRID_WIDE * 120 / 2) + (i * 120);
@@ -42,9 +45,8 @@ function Grid() {
       }
     }
   }
-  this.initCells();
 
-  this.reset = function() {
+  reset() {
     this.cells.forEach(function(cell) {
       cell.destroy();
     });
@@ -52,7 +54,7 @@ function Grid() {
     this.initCells();
   }
 
-  this.checkCellHit = function(bullet) {
+  checkCellHit(bullet) {
     this.cells.forEach(function(cell, i) {
       if(bullet && cell && isIntersecting(bullet, cell)) {
         bullet.ticker.stop();
