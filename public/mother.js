@@ -11,8 +11,9 @@ class Mother extends PIXI.Sprite {
   hit() {
     GameAudio.motherHitSound();
     this.hits++;
-    if(this.hits == Props.MOTHER_MAX_HITS) {
+    if(this.hits === Props.MOTHER_MAX_HITS) {
       //this.ticker.stop();
+      Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
       this.destroy(); 
       GameAudio.explosionSound();
       return true;
@@ -27,6 +28,7 @@ class Mother extends PIXI.Sprite {
   checkHit(bullet) {
     if(bullet && isIntersecting(bullet, this)) {
       bullet.ticker.stop();
+      Effects.explode(bullet.x, bullet.y, Props.EXPLOSION_TINY);
       bullet.destroy(); 
       this.hit();
       return;

@@ -1,8 +1,6 @@
 class Enemy extends PIXI.Sprite {
-  constructor(x, y) {
+  constructor() {
     super(GameGraphics.getEnemyGraphics());
-    this.x = x;
-    this.y = y;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.hits = 0;
@@ -18,10 +16,12 @@ class Enemy extends PIXI.Sprite {
   
   hit() {
     this.hits++;
-    if(this.hits == 5) {
-      GameAudio.alienHitSound();
+    GameAudio.alienHitSound();
+    if(this.hits == Props.ENEMY_MAX_HITS) {
+      GameAudio.explosionSound();
       this.ticker.stop();
-      this.destroy(); 
+      Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
+      this.destroy();
       return true;
     }
     return false;

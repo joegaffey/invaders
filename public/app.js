@@ -1,5 +1,6 @@
 var app = new PIXI.Application();
-app.renderer = PIXI.autoDetectRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
+//app.renderer = PIXI.autoDetectRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
+app.renderer = new PIXI.CanvasRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
 app.paused = false;
 
 document.addEventListener('visibilitychange', function() {
@@ -34,16 +35,18 @@ app.ticker.add(function() {
 });
 app.stage.addChild(ship);
 
-var swarm = new Swarm(app.renderer.width, app.renderer.height, Props.ENEMY_ROWS);
+var swarm = new Swarm(app.renderer.width, app.renderer.height);
 
 setInterval(function() { 
-  if(!app.paused && swarm.enemies.length > 0)
+  if(!app.paused)
     swarm.move(); 
-}, Props.SWARM_MOVE_INTERVAL / swarm.speed);
+}, Props.SWARM_MOVE_INTERVAL);
 
 setInterval(function() { 
-  if(!app.paused && swarm.enemies.length > 0)
-    swarm.enemies[Math.floor(Math.random() * swarm.enemies.length)].shoot();
+  if(!app.paused)
+    var enemy = swarm.getRandomEnemy();
+    if(enemy)
+       enemy.shoot();
 }, Props.SWARM_SHOOT_INTERVAL);
 
 var grid = new Grid();
