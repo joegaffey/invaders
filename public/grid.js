@@ -16,6 +16,7 @@ class Grid {
       cell.hits++;
       if(cell.hits > Props.CELL_MAX_HITS) {
         GameAudio.explosionSound();
+        Effects.explode(cell.x, cell.y, Props.EXPLOSION_MEDIUM);
         cell.destroy();
         grid.removeCell(i);
       }
@@ -35,10 +36,10 @@ class Grid {
   initCells() {
     for(var i = 0; i < Props.GRID_WIDE; i++) {
       for(var j = 0; j < Props.GRID_DEEP; j++) {
-        var x = 20 + app.renderer.width / 2 - (Props.GRID_WIDE * 120 / 2) + (i * 120);
-        if(j % 2 == 0)
-          x += 60;
-        var y = 450 + (j * 20);
+        var x = Props.GRID_H_OFFSET + app.renderer.width / 2 - (Props.GRID_WIDE * Props.CELL_WIDTH / 2) + (i * Props.CELL_WIDTH);
+        if(j % 2 === 0)
+          x += Props.CELL_WIDTH / 2;
+        var y = Props.GRID_TOP + (j * Props.CELL_HEIGHT / 2);
         var cell = this.getCell(x, y);
         app.stage.addChild(cell); 
         this.cells.push(cell);
