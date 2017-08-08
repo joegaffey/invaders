@@ -1,82 +1,77 @@
 class Swarm {
-  constructor(width, height) {  
+  constructor() {  
     this.enemies = [];
-    this.width = width;
-    this.height = height; 
+    this.width = app.renderer.width;
+    this.height = app.renderer.height; 
     this.columns = Math.floor(this.width / Props.ENEMY_GAP) - Props.SWARM_COLUMNS_MARGIN;
-    this.xPos = 0;
-    this.yPos = 0;
-    this.direction = 1;
+    this.xPos = Props.SWARM_COLUMNS_MARGIN / 2 * Props.ENEMY_GAP;
+    this.yPos = Props.SWARM_TOP;
+    this.xShift = 0;
+    this.direction = 1;        
     
-    for(var i = 0; i < this.columns; i++) {
-      for(var j = 0; j < Props.ENEMY_ROWS; j++) {
-        var x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (i * Props.ENEMY_GAP);
-        var y = Props.SWARM_TOP + (j * Props.ENEMY_GAP);
-        var enemy = new Enemy();
-        enemy.x = x;
-        enemy.y = y;
-        enemy.tint = Props.ENEMY_COLORS[j % Props.ENEMY_COLORS.length];
-        this.enemies.push(enemy);
-        app.stage.addChild(enemy);
+    for(var i = 0; i < 70; i++) {
+      var enemy = this.addEnemyAtIndex(i);
+      app.stage.addChild(enemy);
+    }
+  }
+  
+  addEnemyAtIndex(i) {
+    var enemy = new Enemy();
+    enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+    enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+    enemy.tint = Props.ENEMY_COLORS[this.getRowByIndex(i) % Props.ENEMY_COLORS.length];
+    this.enemies[i] = enemy;
+    return enemy;
+  }
+  
+  addEnemy() {
+    for(var i  = 0; i < this.enemies.length; i++) {
+      if(!this.enemies[i]) {
+        var newEnemy = this.addEnemyAtIndex(i);
+        app.stage.addChild(newEnemy);
+        return;
       }
     }
   }
   
-  //@TODO - Make this work right 
-  addEnemy() {
-    var newEnemy = new Enemy();
-    this.enemies.forEach(function(enemy, i) {
-      if(!enemy) {
-        var a = i % Props.ENEMY_ROWS;
-        var b = Math.round(i / Props.ENEMY_ROWS);            
-        newEnemy.x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (b * Props.ENEMY_GAP);
-        newEnemy.y = Props.SWARM_TOP + (a * Props.ENEMY_GAP); 
-        this.enemies[i] = newEnemy;
-        app.stage.addChild(newEnemy);
-        
-        // newEnemy.ticker.add(function() {
-        //   newEnemy.y += 5;
-        //   if(newEnemy.y > app.renderer.height) {
-        //     newEnemy.ticker.remove();
-        //     var a = i % Props.ENEMY_ROWS;
-        //     var b = Math.round(i / Props.ENEMY_ROWS);            
-        //     newEnemy.x = Props.ENEMY_GAP / 2 + this.width / 2 - (this.columns * Props.ENEMY_GAP / 2) + (b * Props.ENEMY_GAP);
-        //     newEnemy.y = Props.SWARM_TOP + (a * Props.ENEMY_GAP);
-        //   }
-        // }.bind(this));
-        // newEnemy.ticker.start();
-        return;
-      } 
-    }.bind(this));
+  getColumnByIndex(i) {
+    return i % this.columns;
+  }
+  
+  getRowByIndex(i) {
+    return Math.floor(i / this.columns);
   }
   
   shiftDown() {
-    this.yPos++;
-    this.enemies.forEach(function(enemy) {
+    this.xShift = 0;
+    this.yPos += Props.SWARM_V_STEP;   
+    this.enemies.forEach(function(enemy, i) {
       if(enemy)
-        enemy.y += Props.SWARM_V_STEP;    
-    });
-    if(this.yPos * Props.SWARM_V_STEP > this.height - Props.GRID_TOP) {
-      alert(Props.DEATH_MESSAGE);
-      app.reset();
+         enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+    }.bind(this));
+    if(this.yPos > this.height - Props.GRID_TOP) {
+       alert(Props.DEATH_MESSAGE);
+       app.reset();
     }
   }
 
   shiftLeft() {
-    this.xPos--;
-    this.enemies.forEach(function(enemy) {
+    this.xPos -= Props.SWARM_H_STEP;   
+    this.xShift--;
+    this.enemies.forEach(function(enemy, i) {
       if(enemy)
-         enemy.x -= Props.SWARM_H_STEP;    
-    });
+         enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+    }.bind(this));
   }
 
   shiftRight() {
-    this.xPos++;
-    this.enemies.forEach(function(enemy) {
+    this.xPos += Props.SWARM_H_STEP;   
+    this.xShift++;
+    this.enemies.forEach(function(enemy, i) {
       if(enemy)
-        enemy.x += Props.SWARM_H_STEP;    
-    });
-  }
+        enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+    }.bind(this));
+  } 
   
   getRandomEnemy() {
     let enemy = null;
@@ -100,12 +95,12 @@ class Swarm {
     this.enemies.splice(0, this.enemies.length);
     this.yPos = 0;
     this.xPos = 0;
-    swarm = new Swarm(app.renderer.width, app.renderer.height, Props.ENEMY_ROWS);
+    swarm = new Swarm();
   }
 
   move() {
-    if((this.direction === 1 && this.xPos > Props.SWARM_MAX_SHIFT) || 
-       (this.direction === -1 && this.xPos < -Props.SWARM_MAX_SHIFT)) {
+    if((this.direction === 1 && this.xShift > Props.SWARM_MAX_SHIFT) || 
+       (this.direction === -1 && this.xShift < -Props.SWARM_MAX_SHIFT)) {
       this.shiftDown();
       this.direction *= -1; 
     }
