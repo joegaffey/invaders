@@ -66,7 +66,7 @@ class Swarm {
     this.xPos--;
     this.enemies.forEach(function(enemy) {
       if(enemy)
-         enemy.x -= Props.SWARM_H_STEP    
+         enemy.x -= Props.SWARM_H_STEP;    
     });
   }
 
