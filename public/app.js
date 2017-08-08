@@ -35,7 +35,7 @@ app.ticker.add(function() {
 });
 app.stage.addChild(ship);
 
-var swarm = new Swarm(app.renderer.width, app.renderer.height);
+var swarm = new Swarm();
 
 setInterval(function() { 
   if(!app.paused)

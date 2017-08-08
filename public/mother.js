@@ -10,7 +10,7 @@ class Mother extends PIXI.Sprite {
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
       if(Math.random() * 1000 < Props.MOTHER_FIRE_RATE)
-        this.shoot(this.x, this.y + this.height / 2);
+        this.shoot();
       this.x += this.direction * Props.MOTHER_SPEED;
       if(this.x > Props.STAGE_HRES - this.width /2)
         this.direction = -1;
@@ -34,7 +34,7 @@ class Mother extends PIXI.Sprite {
   }
   
   shoot() {
-    this.addEnemyBullet(this.x, this.y - this.height / 2);
+    this.addBullet(this.x, this.y + this.height / 2);
   }
   
   checkHit(bullet) {
@@ -47,7 +47,7 @@ class Mother extends PIXI.Sprite {
     }
   }
   
-  shoot(x, y) {    
+  addBullet(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());
     bullet.x = x;
     bullet.y = y;
