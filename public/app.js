@@ -55,8 +55,13 @@ var mother = new Mother(app.renderer.width / 2, 40);
 app.stage.addChild(mother);
 
 app.reset = function() {
+  // for (var i = app.stage.children.length - 1; i >= 0; i--) {	
+  //   app.stage.removeChild(app.stage.children[i]);
+  // }
   swarm.reset();
   grid.reset();
+  if(mother)
+    mother.destroy();
   mother = new Mother(app.renderer.width / 2, 40);
   app.stage.addChild(mother);
 }

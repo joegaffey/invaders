@@ -23,7 +23,7 @@ GameAudio.finishedLoading = function(bufferList) {
 }
 
 GameAudio.shootSound = function() {
-  GameAudio.playSound(0, 1); 
+  GameAudio.playSound(0, 0.3); 
 }
 
 GameAudio.moveSound = function() {
@@ -31,15 +31,15 @@ GameAudio.moveSound = function() {
 }
 
 GameAudio.alienHitSound = function() {
-  GameAudio.playSound(5, 5); 
+  GameAudio.playSound(5, 2); 
 }
 
 GameAudio.motherHitSound = function() {
-  GameAudio.playSound(3, 1); 
+  GameAudio.playSound(3, 0.6); 
 }
 
 GameAudio.cellHitSound = function() {
-  GameAudio.playSound(2, 1);
+  GameAudio.playSound(2, 0.5);
 }
 
 GameAudio.explosionSound = function() {
