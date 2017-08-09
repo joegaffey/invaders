@@ -22,8 +22,10 @@ class Enemy extends PIXI.Sprite {
       this.ticker.stop();
       Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
       this.destroy();
+      app.addScore(Props.ENEMY_KILL_POINTS);
       return true;
     }
+    app.addScore(Props.ENEMY_HIT_POINTS);
     return false;
   }
   

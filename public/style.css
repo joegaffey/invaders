@@ -18,8 +18,8 @@ body {
 }
 
 .controls {
-  display: hidden;
-  opacity: 0;
+  display: none;
+  opacity: 0.5;
 }
 
 .leftControl, .rightControl {
@@ -75,4 +75,38 @@ body {
   border-radius: 100px;
   height: 100px;
   width: 100px;
+}
+
+.modal {
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #552200;
+  margin: 25% auto; 
+  padding: 20px;
+  border: 1px solid #555;
+  width: 70%; 
+  font-size: large;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #ffffff;
+}
+
+.score {
+  position: fixed; 
+  right: 20px;
+  top: 20px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #888888;
 }
