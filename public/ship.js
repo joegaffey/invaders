@@ -1,12 +1,18 @@
 class Ship extends PIXI.Sprite {
-  constructor(x, y) {    
+  constructor() {    
     super(GameGraphics.getShipGraphics());
-    this.x = x;
-    this.y = y;
+    this.x = Props.STAGE_HRES / 2;
+    this.y = Props.STAGE_VRES - Props.SHIP_VERT_ADJUST;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 0;
     this.direction = 1;
+    this.ticker = new PIXI.ticker.Ticker();
+    this.ticker.add(function() {
+      this.x += this.speed;
+    }.bind(this));
+    this.ticker.start();
+    app.stage.addChild(this);
   }
   
   shoot() {
@@ -20,6 +26,10 @@ class Ship extends PIXI.Sprite {
   reload() {
     this.loaded = true;
   } 
+  
+  reset() {
+    this.x = Props.STAGE_HRES / 2;
+  }
   
   addBullet(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());

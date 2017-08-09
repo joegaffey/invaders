@@ -5,6 +5,7 @@ window.onload = initAudio;
 function initAudio() {
   GameAudio.context = new AudioContext();
   
+  // Glitch CDN URLs. For other hosting replace with links to assets folder
   var bufferLoader = new BufferLoader(GameAudio.context,
     [
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fshoot.wav?1499375807873',

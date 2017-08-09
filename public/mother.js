@@ -1,8 +1,8 @@
 class Mother extends PIXI.Sprite {
-  constructor(x, y) {
+  constructor() {
     super(GameGraphics.getMotherGraphics());
-    this.x = x;
-    this.y = y;
+    this.x = app.renderer.width / 2;
+    this.y = 40;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.hits = 0;
@@ -10,8 +10,6 @@ class Mother extends PIXI.Sprite {
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
       if(!app.paused) {
-        if(Math.random() * 1000 < Props.MOTHER_FIRE_RATE)
-          this.shoot();
         this.x += this.direction * Props.MOTHER_SPEED;
         if(this.x > Props.STAGE_HRES - this.width /2)
           this.direction = -1;
@@ -19,6 +17,7 @@ class Mother extends PIXI.Sprite {
           this.direction = 1;
       }
     }.bind(this));
+    app.stage.addChild(this);
     this.ticker.start();
   }
   
@@ -30,8 +29,10 @@ class Mother extends PIXI.Sprite {
       GameAudio.explosionSound();
       Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
       this.destroy(); 
+      app.addScore(Props.MOTHER_KILL_POINTS);
       return true;
     }
+    app.addScore(Props.MOTHER_HIT_POINTS);
     return false;
   }
   
@@ -70,5 +71,10 @@ class Mother extends PIXI.Sprite {
     });
     bullet.ticker.start();
     app.stage.addChild(bullet);
+  }
+  
+  reset() {
+    this.destroy();
+    mother = new Mother();
   }
 }

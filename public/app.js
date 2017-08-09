@@ -6,6 +6,7 @@ var app = new PIXI.Application();
 
 app.renderer = new PIXI.CanvasRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
 app.paused = true;
+app.score = 0;
 
 document.addEventListener('visibilitychange', function() {
   if( document.visibilityState == 'hidden') {
@@ -32,14 +33,10 @@ function setSize() {
 setSize();
 window.onresize = setSize;
 
-var ship = new Ship(app.renderer.width / 2, app.renderer.height - Props.SHIP_VERT_ADJUST);    
-var shipSpeed = Props.SHIP_SPEED;
-app.ticker.add(function() {
-  ship.x += ship.speed;
-});
-app.stage.addChild(ship);
-
+var ship = new Ship();    
 var swarm = new Swarm();
+var grid = new Grid();
+var mother = new Mother();
 
 setInterval(function() { 
   if(!app.paused)
@@ -51,23 +48,27 @@ setInterval(function() {
     var enemy = swarm.getRandomEnemy();
     if(enemy)
        enemy.shoot();
-}, Props.SWARM_SHOOT_INTERVAL);
+}, Math.floor(Props.SWARM_SHOOT_INTERVAL + Math.random() * Props.SWARM_SHOOT_INTERVAL));
 
-var grid = new Grid();
-
-var mother = new Mother(app.renderer.width / 2, 40);
-app.stage.addChild(mother);
+setInterval(function() { 
+  if(!app.paused)
+    if(mother)
+       mother.shoot();
+}, Math.floor(Props.MOTHER_SHOOT_INTERVAL + Math.random() * Props.MOTHER_SHOOT_INTERVAL));
 
 app.reset = function() {
   swarm.reset();
   grid.reset();
-  mother = new Mother(app.renderer.width / 2, 40);
-  app.stage.addChild(mother);
+  mother.reset();
+  ship.reset();
+  app.updateScore(0);
 }
 
 app.showDialog = function(message) {
-  if(message)
+  if(message) {
+    document.querySelector('#scoreMessage').innerText = 'You scored ' + app.score + ' points';
     document.querySelector('#optMessage').innerText = message;
+  }
   document.querySelector('.modal').style.display = 'block';
 }
 
@@ -75,7 +76,7 @@ app.hideDialog = function() {
   document.querySelector('.modal').style.display = 'none';
 }
 
-app.unPause = function() {
+app.unPause = function() {  
   if(app.stopped) {
     app.stopped = false;
     app.reset();
@@ -83,6 +84,17 @@ app.unPause = function() {
   app.paused = false;
   app.hideDialog();
   document.querySelector('#optMessage').innerText = '';
+  document.querySelector('#scoreMessage').innerText = '';
+}
+
+app.updateScore = function(score) {
+  app.score = score;
+  document.querySelector('.score').innerText = score;
+}
+
+app.addScore = function(score) {
+  app.score += score;
+  document.querySelector('.score').innerText = app.score;
 }
 
 app.stop = function(message) {
@@ -90,3 +102,5 @@ app.stop = function(message) {
   app.stopped = true;
   app.showDialog(message);
 }
+
+document.querySelector('.modal').addEventListener('touchstart', app.unPause);

@@ -1,7 +1,7 @@
 document.body.addEventListener('touchstart', showControls);
 
 function showControls() {
-  document.querySelector('.controls').style.opacity = 0.5;
+  document.querySelector('.controls').style.display = 'block';
   document.body.removeEventListener('touchstart', showControls);
 }
 
@@ -28,11 +28,11 @@ window.addEventListener('keyup', function (e) {
 
 window.addEventListener('keydown', function (e) {
   if (e.keyCode === 37) {
-    ship.speed = -shipSpeed;
+    ship.speed = -Props.SHIP_SPEED;
     lastKey = e.keyCode;
   }
   else if (e.keyCode === 39) { 
-    ship.speed = shipSpeed;
+    ship.speed = Props.SHIP_SPEED;
     lastKey = e.keyCode;
   }
 });
@@ -44,10 +44,10 @@ if(gp) {
     var reset = true;
     var analogueLR = gp.axes[0];
     if(analogueLR < -0.5) {
-      ship.speed = -shipSpeed;  
+      ship.speed = -Props.SHIP_SPEED;  
     } 
     else if(analogueLR > 0.5) {
-      ship.speed = shipSpeed; 
+      ship.speed = Props.SHIP_SPEED; 
     } 
     else {
       ship.speed = 0; 
@@ -68,7 +68,7 @@ function handleFire() {
 }
 
 function handleLeft() {
-  ship.speed = -shipSpeed;
+  ship.speed = -Props.SHIP_SPEED;
 }
 
 function handleLeftEnd() {
@@ -76,7 +76,7 @@ function handleLeftEnd() {
 }
 
 function handleRight() {
-  ship.speed = shipSpeed;
+  ship.speed = Props.SHIP_SPEED;
 }
 
 function handleRightEnd() {

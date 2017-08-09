@@ -16,7 +16,7 @@ class Grid {
       cell.hits++;
       if(cell.hits > Props.CELL_MAX_HITS) {
         GameAudio.explosionSound();
-        Effects.explode(cell.x, cell.y, Props.EXPLOSION_MEDIUM);
+        Effects.explode(cell.x, cell.y, Props.EXPLOSION_LARGE);
         cell.destroy();
         grid.removeCell(i);
       }
