@@ -9,13 +9,15 @@ class Mother extends PIXI.Sprite {
     this.direction = 1;
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
-      if(Math.random() * 1000 < Props.MOTHER_FIRE_RATE)
-        this.shoot();
-      this.x += this.direction * Props.MOTHER_SPEED;
-      if(this.x > Props.STAGE_HRES - this.width /2)
-        this.direction = -1;
-      if(this.x < this.width /2)
-        this.direction = 1;
+      if(!app.paused) {
+        if(Math.random() * 1000 < Props.MOTHER_FIRE_RATE)
+          this.shoot();
+        this.x += this.direction * Props.MOTHER_SPEED;
+        if(this.x > Props.STAGE_HRES - this.width /2)
+          this.direction = -1;
+        if(this.x < this.width /2)
+          this.direction = 1;
+      }
     }.bind(this));
     this.ticker.start();
   }
@@ -25,9 +27,9 @@ class Mother extends PIXI.Sprite {
     this.hits++;
     if(this.hits === Props.MOTHER_MAX_HITS) {
       this.ticker.stop();
+      GameAudio.explosionSound();
       Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
       this.destroy(); 
-      GameAudio.explosionSound();
       return true;
     }
     return false;
@@ -42,8 +44,8 @@ class Mother extends PIXI.Sprite {
       bullet.ticker.stop();
       Effects.explode(bullet.x, bullet.y, Props.EXPLOSION_TINY);
       bullet.destroy(); 
-      this.hit();
-      return;
+      if(this.hit() && swarm.enemyCount === 0)
+        app.stop(Props.SUCCESS_MESSAGE);       
     }
   }
   

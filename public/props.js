@@ -4,6 +4,7 @@ Props.STAGE_HRES = 800;
 Props.STAGE_VRES = 600;
 
 Props.DEATH_MESSAGE = 'Game over Man! Game Over!';
+Props.SUCCESS_MESSAGE = 'You have saved the planet!';
 
 Props.SHIP_VERT_ADJUST = 30;
 Props.SHIP_SPEED = 3;
@@ -33,11 +34,11 @@ Props.ENEMY_ROWS = 5;
 Props.ENEMY_ROTATION_SPEED = 0.1;
 Props.ENEMY_DECAY_RATE = 0.1;
 Props.ENEMY_BULLET_SPEED = 5;
-Props.ENEMY_MAX_HITS = 5;
+Props.ENEMY_MAX_HITS = 1;
 
 Props.BULLET_SPEED = 8;
 
-Props.MOTHER_MAX_HITS = 50;
+Props.MOTHER_MAX_HITS = 5;
 Props.MOTHER_FIRE_RATE = 10;
 Props.MOTHER_SPEED = 1;
 

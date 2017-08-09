@@ -61,8 +61,9 @@ class Grid {
         bullet.ticker.stop();
         bullet.destroy(); 
         cell.hit(i);
-        return;
+        return true;
       }
     });
+    return false;
   }
 }

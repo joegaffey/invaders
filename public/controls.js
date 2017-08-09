@@ -16,11 +16,9 @@ var rightButton = document.querySelector('.rightControl');
 rightButton.addEventListener('touchstart', handleRight);
 rightButton.addEventListener('touchend', handleRightEnd);
 
-
 window.addEventListener('keyup', function (e) {
   if(e.keyCode == 32) {
-    ship.reload();
-    ship.shoot();
+    handleFire();
   }
   else if (e.keyCode === 37  && lastKey === 37) 
     ship.speed = 0;  
@@ -63,6 +61,8 @@ if(gp) {
 }
 
 function handleFire() {
+  if(app.paused)
+    app.unPause();
   ship.loaded = true;
   ship.shoot();
 }

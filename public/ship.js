@@ -56,7 +56,6 @@ class Ship extends PIXI.Sprite {
   hit() {
     GameAudio.explosionSound();
     this.speed = 0;
-    alert(Props.DEATH_MESSAGE);
-    app.reset();
+    app.stop(Props.DEATH_MESSAGE);
   }
 }

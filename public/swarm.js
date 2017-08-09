@@ -7,11 +7,11 @@ class Swarm {
     this.xPos = Props.SWARM_COLUMNS_MARGIN / 2 * Props.ENEMY_GAP;
     this.yPos = Props.SWARM_TOP;
     this.xShift = 0;
-    this.direction = 1;        
+    this.direction = 1;       
+    this.enemyCount = 0;
     
     for(var i = 0; i < 70; i++) {
-      var enemy = this.addEnemyAtIndex(i);
-      app.stage.addChild(enemy);
+      this.addEnemy();
     }
   }
   
@@ -32,6 +32,9 @@ class Swarm {
         return;
       }
     }
+    var newEnemy = this.addEnemyAtIndex(this.enemies.length);
+    app.stage.addChild(newEnemy);    
+    this.enemyCount++;
   }
   
   getColumnByIndex(i) {
@@ -46,13 +49,14 @@ class Swarm {
     this.xShift = 0;
     this.yPos += Props.SWARM_V_STEP;   
     this.enemies.forEach(function(enemy, i) {
-      if(enemy)
-         enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+      if(enemy) {
+        if(enemy.y > Props.GRID_TOP - Props.ENEMY_GAP) {
+          app.stop(Props.DEATH_MESSAGE);
+          return;
+        }           
+        enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;         
+      }
     }.bind(this));
-    if(this.yPos > this.height - Props.GRID_TOP) {
-       alert(Props.DEATH_MESSAGE);
-       app.reset();
-    }
   }
 
   shiftLeft() {
@@ -99,6 +103,8 @@ class Swarm {
   }
 
   move() {
+    if(this.enemyCount === 0)
+      return;
     if((this.direction === 1 && this.xShift > Props.SWARM_MAX_SHIFT) || 
        (this.direction === -1 && this.xShift < -Props.SWARM_MAX_SHIFT)) {
       this.shiftDown();
@@ -118,6 +124,9 @@ class Swarm {
         bullet.destroy(); 
         if(enemy.hit()) {
           this.enemies[i] = null;
+          this.enemyCount--;
+          if(this.enemyCount === 0 && mother.hits === Props.MOTHER_MAX_HITS)
+            app.stop(Props.SUCCESS_MESSAGE);
         }
         return;
       }
