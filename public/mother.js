@@ -58,6 +58,8 @@ class Mother extends PIXI.Sprite {
     bullet.speed = Props.ENEMY_BULLET_SPEED;
     bullet.ticker = new PIXI.ticker.Ticker();
     bullet.ticker.add(function() {
+      if(app.paused)
+         return;
       bullet.y += bullet.speed;
       if(bullet.y > app.renderer.height) {
         bullet.ticker.stop();
