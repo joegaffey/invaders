@@ -44,22 +44,27 @@ setInterval(function() {
 }, Props.SWARM_MOVE_INTERVAL);
 
 setInterval(function() { 
-  if(!app.paused)
+  if(!app.paused) {
     var enemy = swarm.getRandomEnemy();
     if(enemy)
        enemy.shoot();
+  }
 }, Math.floor(Props.SWARM_SHOOT_INTERVAL + Math.random() * Props.SWARM_SHOOT_INTERVAL));
 
 setInterval(function() { 
-  if(!app.paused)
+  if(!app.paused) {
     if(mother)
        mother.shoot();
+  }
 }, Math.floor(Props.MOTHER_SHOOT_INTERVAL + Math.random() * Props.MOTHER_SHOOT_INTERVAL));
 
 app.reset = function() {
   swarm.reset();
   grid.reset();
-  mother.reset();
+  if(mother) {
+    mother.reset();
+  }
+  mother = new Mother();
   ship.reset();
   app.updateScore(0);
 }

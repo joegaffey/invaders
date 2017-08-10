@@ -28,12 +28,11 @@ class Mother extends PIXI.Sprite {
       this.ticker.stop();
       GameAudio.explosionSound();
       Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
-      this.destroy(); 
       app.addScore(Props.MOTHER_KILL_POINTS);
-      return true;
+      this.destroy(); 
+      mother = null;
     }
     app.addScore(Props.MOTHER_HIT_POINTS);
-    return false;
   }
   
   shoot() {
@@ -74,7 +73,7 @@ class Mother extends PIXI.Sprite {
   }
   
   reset() {
+    this.ticker.stop();
     this.destroy();
-    mother = new Mother();
   }
 }
