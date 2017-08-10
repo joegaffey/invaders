@@ -47,7 +47,8 @@ class Ship extends PIXI.Sprite {
       }
       else {
         swarm.checkHit(bullet);
-        mother.checkHit(bullet);
+        if(mother)
+           mother.checkHit(bullet);
       }
     });
     bullet.ticker.start();
