@@ -7,6 +7,8 @@ class Enemy extends PIXI.Sprite {
     
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
+      if(app.paused)
+        return;
       this.rotation += this.hits * Props.ENEMY_ROTATION_SPEED;
       this.scale.x = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
       this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
@@ -42,6 +44,8 @@ class Enemy extends PIXI.Sprite {
     bullet.speed = Props.ENEMY_BULLET_SPEED;
     bullet.ticker = new PIXI.ticker.Ticker();
     bullet.ticker.add(function() {
+      if(app.paused)
+         return;
       bullet.y += bullet.speed;
       if(bullet.y > app.renderer.height) {
         bullet.ticker.stop();

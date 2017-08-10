@@ -9,6 +9,8 @@ class Ship extends PIXI.Sprite {
     this.direction = 1;
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
+      if(app.paused)
+        this.speed = 0;
       this.x += this.speed;
     }.bind(this));
     this.ticker.start();
@@ -40,6 +42,8 @@ class Ship extends PIXI.Sprite {
     bullet.speed = Props.BULLET_SPEED;
     bullet.ticker = new PIXI.ticker.Ticker();
     bullet.ticker.add(function() {
+      if(app.paused)
+         return;
       bullet.y -= bullet.speed;
       if(bullet.y < 0) {
          bullet.ticker.stop();
