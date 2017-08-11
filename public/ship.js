@@ -12,6 +12,8 @@ class Ship extends PIXI.Sprite {
       if(app.paused)
         this.speed = 0;
       this.x += this.speed;
+      if(this.x <= this.width / 2 || this.x >= Props.STAGE_HRES - this.width / 2)
+        this.x -= this.speed;
     }.bind(this));
     this.ticker.start();
     app.stage.addChild(this);
