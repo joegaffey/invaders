@@ -9,32 +9,30 @@ class Swarm {
     this.xShift = 0;
     this.direction = 1;       
     this.enemyCount = 0;
-    
     for(var i = 0; i < 70; i++) {
       this.addEnemy();
     }
   }
   
-  addEnemyAtIndex(i) {
-    var enemy = new Enemy();
-    enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
-    enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
-    enemy.tint = Props.ENEMY_COLORS[this.getRowByIndex(i) % Props.ENEMY_COLORS.length];
-    this.enemies[i] = enemy;
-    return enemy;
-  }
-  
   addEnemy() {
-    for(var i  = 0; i < this.enemies.length; i++) {
+    for(var i  = 0; i < this.enemies.length + 1; i++) {
       if(!this.enemies[i]) {
-        var newEnemy = this.addEnemyAtIndex(i);
-        app.stage.addChild(newEnemy);
+        var enemy = new Enemy();
+        enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+        enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+        enemy.tint = Props.ENEMY_COLORS[this.getRowByIndex(i) % Props.ENEMY_COLORS.length];
+        this.enemies[i] = enemy;
+        app.stage.addChild(enemy);
+        this.enemyCount++;
+        
+        // enemy.x = mother.x;
+        // enemy.y = mother.y; 
+        // enemy.startX = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+        // enemy.startY = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+        // enemy.ticker.add(enemy.moveTo(enemy));
         return;
       }
     }
-    var newEnemy = this.addEnemyAtIndex(this.enemies.length);
-    app.stage.addChild(newEnemy);    
-    this.enemyCount++;
   }
   
   getColumnByIndex(i) {

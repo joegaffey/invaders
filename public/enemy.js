@@ -4,6 +4,9 @@ class Enemy extends PIXI.Sprite {
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.hits = 0;
+    // this.inPosition = false;
+    // this.startX = 0;
+    // this.starty = 0;
     
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
@@ -14,6 +17,39 @@ class Enemy extends PIXI.Sprite {
       this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
     }.bind(this));
     this.ticker.start();
+  }
+  
+//   moveTo(enemy) {
+//     console.log(enemy);
+//     console.log(enemy.x + ' ' + enemy.y);
+//     console.log(enemy.startX + ' ' + enemy.startY);
+    
+//     if(enemy.x === enemy.startX && enemy.y === enemy.startY) {
+//       enemy.inPosition = true;
+//       enemy.ticker.remove(enemy.moveTo);
+//     }
+//     else {
+//      if(enemy.x > enemy.startX)
+//        enemy.x--;
+//      else if(enemy.x < enemy.startX)
+//        enemy.x++
+//     if(enemy.y > enemy.startY)
+//        enemy.y--;
+//      else if(enemy.y < enemy.startY)
+//        enemy.y++
+//     }
+//   }
+  
+    moveToStartPos() {
+      this.ticker = new PIXI.ticker.Ticker();
+      this.ticker.add(function() {
+        if(app.paused)
+          return;
+        this.rotation += this.hits * Props.ENEMY_ROTATION_SPEED;
+        this.scale.x = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
+        this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
+      }.bind(this));
+      this.ticker.start();
   }
   
   hit() {
