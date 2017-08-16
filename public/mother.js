@@ -52,6 +52,14 @@ class Mother extends PIXI.Sprite {
     }
   }
   
+  checkEnergy(energy) {
+    if(energy && isIntersecting(energy, this)) {
+      energy.ticker.stop();
+      energy.destroy(); 
+      swarm.addEnemy();
+    }
+  }
+  
   addBullet(x, y) {    
     var bullet = new PIXI.Sprite(GameGraphics.getBulletGraphics());
     bullet.x = x;

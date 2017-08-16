@@ -27,6 +27,14 @@ class Ship extends PIXI.Sprite {
     }
   }
   
+  charge() {
+    if(this.loaded) {
+      GameAudio.shootSound();
+      this.addEnergy(this.x, this.y - this.height / 2);
+      this.loaded = false;
+    }
+  }
+  
   reload() {
     this.loaded = true;
   } 
@@ -59,6 +67,33 @@ class Ship extends PIXI.Sprite {
     });
     bullet.ticker.start();
     app.stage.addChild(bullet);
+  }
+  
+  addEnergy(x, y) {    
+    var energy = new PIXI.Sprite(GameGraphics.getEnergyGraphics());
+    energy.x = x;
+    energy.y = y;
+    energy.tint = 0x00FF00;
+    energy.anchor.x = 0.5;
+    energy.anchor.y = 0.5;
+    energy.speed = Props.BULLET_SPEED;
+    energy.ticker = new PIXI.ticker.Ticker();
+    energy.ticker.add(function() {
+      if(app.paused)
+         return;
+      energy.y -= energy.speed;
+      if(energy.y < 0) {
+         energy.ticker.stop();
+         energy.destroy(); 
+      }
+      else {
+        grid.checkEnergy(energy);
+        swarm.checkEnergy(energy);
+        mother.checkEnergy(energy);
+      }
+    });
+    energy.ticker.start();
+    app.stage.addChild(energy);
   }
   
   checkHit(bullet) {

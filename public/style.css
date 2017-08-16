@@ -77,6 +77,16 @@ body {
   width: 100px;
 }
 
+.chargeControl {
+  position: absolute;
+  bottom: 50px;
+  right: 175px;
+  background-color: #00FF00;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
+
 .modal {
   position: fixed; 
   z-index: 1; 

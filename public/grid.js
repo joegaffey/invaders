@@ -21,10 +21,21 @@ class Grid {
         grid.removeCell(i);
       }
       else {
-        cell.scale.x = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
-        cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
-        cell.tint = Props.CELL_TINTS[cell.hits];
+        cell.updateCell();
       }
+    };
+    cell.updateCell = function() {
+      cell.scale.x = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
+      cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
+      cell.tint = Props.CELL_TINTS[cell.hits];
+    }
+    cell.addEnergy = function() {
+      if(cell.hits > 0) {
+        cell.hits--;
+        cell.updateCell();
+        return true;
+      }
+      return false;
     };
     return cell;
   }
@@ -61,6 +72,19 @@ class Grid {
         bullet.ticker.stop();
         bullet.destroy(); 
         cell.hit(i);
+        return true;
+      }
+    });
+    return false;
+  }
+  
+  checkEnergy(energy) {
+    this.cells.forEach(function(cell, i) {
+      if(energy && cell && isIntersecting(energy, cell)) {
+        if(cell.addEnergy()) {
+          energy.ticker.stop();
+          energy.destroy();         
+        }
         return true;
       }
     });
