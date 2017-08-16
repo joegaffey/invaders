@@ -28,6 +28,16 @@ GameGraphics.getBulletGraphics = function() {
   return graphics.generateTexture();
 }
 
+GameGraphics.getEnergyGraphics = function() {
+  var graphics = new PIXI.Graphics();
+  graphics.beginFill(0xFFFFFF);
+  graphics.drawCircle(0, 0, 4);
+  graphics.endFill();
+  graphics.boundsPadding = 0;
+  return graphics.generateTexture();
+}
+    
+
 GameGraphics.getEnemyGraphics = function() {
   var graphics = new PIXI.Graphics();
   graphics.beginFill(0xFFFFFF);

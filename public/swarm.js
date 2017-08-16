@@ -130,4 +130,19 @@ class Swarm {
       }
     }.bind(this));
   }
+  
+  checkEnergy(energy) {
+    this.enemies.forEach(function(enemy, i) {
+      if(energy && enemy && isIntersecting(energy, enemy)) {
+        if(enemy.hits > 0) {
+          energy.ticker.stop();
+          energy.destroy(); 
+          enemy.hits--;
+          if(enemy.hits == 0)
+            enemy.rotation = 0;
+        }
+        return;
+      }
+    }.bind(this));
+  }
 }
