@@ -9,7 +9,7 @@ class Swarm {
     this.xShift = 0;
     this.direction = 1;       
     this.enemyCount = 0;
-    for(var i = 0; i < 70; i++) {
+    for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) {
       this.addEnemy();
     }
   }
@@ -24,15 +24,18 @@ class Swarm {
         this.enemies[i] = enemy;
         app.stage.addChild(enemy);
         this.enemyCount++;
-        
-        // enemy.x = mother.x;
-        // enemy.y = mother.y; 
-        // enemy.startX = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
-        // enemy.startY = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
-        // enemy.ticker.add(enemy.moveTo(enemy));
+        this.moveEnemyIntoPosition(enemy, i);
         return;
       }
     }
+  }
+  
+  moveEnemyIntoPosition(enemy, i) {
+    enemy.x = mother.x;
+    enemy.y = mother.y; 
+    enemy.startX = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+    enemy.startY = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+    enemy.ticker.add(enemy.moveToStartPosition, enemy);
   }
   
   getColumnByIndex(i) {
@@ -47,7 +50,7 @@ class Swarm {
     this.xShift = 0;
     this.yPos += Props.SWARM_V_STEP;   
     this.enemies.forEach(function(enemy, i) {
-      if(enemy) {
+      if(enemy && enemy.inPosition) {
         if(enemy.y > Props.GRID_TOP - Props.ENEMY_GAP) {
           app.stop(Props.DEATH_MESSAGE);
           return;
@@ -61,7 +64,7 @@ class Swarm {
     this.xPos -= Props.SWARM_H_STEP;   
     this.xShift--;
     this.enemies.forEach(function(enemy, i) {
-      if(enemy)
+      if(enemy && enemy.inPosition)
          enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
     }.bind(this));
   }
@@ -70,7 +73,7 @@ class Swarm {
     this.xPos += Props.SWARM_H_STEP;   
     this.xShift++;
     this.enemies.forEach(function(enemy, i) {
-      if(enemy)
+      if(enemy && enemy.inPosition)
         enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
     }.bind(this));
   } 
