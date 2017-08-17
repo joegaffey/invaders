@@ -22,7 +22,7 @@ GameGraphics.getShipGraphics = function() {
 GameGraphics.getBulletGraphics = function() {
   var graphics = new PIXI.Graphics();
   graphics.beginFill(0xFFFFFF);
-  graphics.drawRect(4, 4, 4, 4);
+  graphics.drawRect(4, 4, 3, 10);
   graphics.endFill();
   graphics.boundsPadding = 0;
   return graphics.generateTexture();
@@ -36,7 +36,6 @@ GameGraphics.getEnergyGraphics = function() {
   graphics.boundsPadding = 0;
   return graphics.generateTexture();
 }
-    
 
 GameGraphics.getEnemyGraphics = function() {
   var graphics = new PIXI.Graphics();
