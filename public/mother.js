@@ -57,6 +57,7 @@ class Mother extends PIXI.Sprite {
       energy.ticker.stop();
       energy.destroy(); 
       swarm.addEnemy();
+      app.minusScore(Props.MOTHER_HIT_POINTS);
     }
   }
   

@@ -143,6 +143,7 @@ class Swarm {
           enemy.hits--;
           if(enemy.hits == 0)
             enemy.rotation = 0;
+          app.minusScore(Props.ENEMY_HIT_POINTS);
         }
         return;
       }

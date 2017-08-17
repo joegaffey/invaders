@@ -33,6 +33,7 @@ class Grid {
       if(cell.hits > 0) {
         cell.hits--;
         cell.updateCell();
+        app.addScore(Props.CELL_CHARGE_POINTS);
         return true;
       }
       return false;
