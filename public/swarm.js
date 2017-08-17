@@ -126,7 +126,7 @@ class Swarm {
         if(enemy.hit()) {
           this.enemies[i] = null;
           this.enemyCount--;
-          if(this.enemyCount === 0 && mother.hits === Props.MOTHER_MAX_HITS)
+          if(this.enemyCount === 0 && !mother)
             app.stop(Props.SUCCESS_MESSAGE);
         }
         return;

@@ -89,7 +89,8 @@ class Ship extends PIXI.Sprite {
       else {
         grid.checkEnergy(energy);
         swarm.checkEnergy(energy);
-        mother.checkEnergy(energy);
+        if(mother)
+          mother.checkEnergy(energy);
       }
     });
     energy.ticker.start();
