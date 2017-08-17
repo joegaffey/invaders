@@ -1,19 +1,23 @@
 var app = new PIXI.Application();
 
 // Use canvas renderer to avoid cross origin issues with webgl
-//Change to auto renderer to enable webgl in suported hosting environments 
+// Change to auto renderer to enable webgl in suported hosting environments 
 //app.renderer = PIXI.autoDetectRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
-
 app.renderer = new PIXI.CanvasRenderer(Props.STAGE_HRES, Props.STAGE_VRES, { transparent: true });
+
 app.paused = true;
 app.score = 0;
 
 document.addEventListener('visibilitychange', function() {
   if( document.visibilityState == 'hidden') {
-    app.paused = true;
-    app.showDialog();
+    app.pause();
   }
 });
+
+app.pause = function() {
+  app.paused = true;
+  app.showDialog();
+}
 
 var graphicsCanvas = document.querySelector('.graphicsCanvas');
 graphicsCanvas.appendChild(app.view);
@@ -60,12 +64,12 @@ setInterval(function() {
 }, Math.floor(Props.MOTHER_SHOOT_INTERVAL + Math.random() * Props.MOTHER_SHOOT_INTERVAL));
 
 app.reset = function() {
-  swarm.reset();
   grid.reset();
   if(mother) {
     mother.reset();
   }
   mother = new Mother();
+  swarm.reset();
   ship.reset();
   app.updateScore(0);
 }
@@ -103,10 +107,16 @@ app.addScore = function(score) {
   document.querySelector('.score').innerText = app.score;
 }
 
+app.minusScore = function(score) {
+  if(app.score > score)
+     app.score -= score;
+  else
+    app.score = 0;
+  document.querySelector('.score').innerText = app.score;
+}
+
 app.stop = function(message) {
   app.paused = true;
   app.stopped = true;
   app.showDialog(message);
 }
-
-document.querySelector('.modal').addEventListener('touchstart', app.unPause);

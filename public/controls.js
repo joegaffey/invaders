@@ -20,11 +20,14 @@ rightButton.addEventListener('touchstart', handleRight);
 rightButton.addEventListener('touchend', handleRightEnd);
 
 window.addEventListener('keyup', function (e) {
-  if(e.keyCode == 32) {
+  if(e.keyCode === 32) {
     handleFire();
   }
-  else if(e.keyCode == 17) {
+  else if(e.keyCode === 17) {
     handleCharge();
+  }
+  else if(e.keyCode === 13) {
+    handlePause();        
   }
   else if (e.keyCode === 37  && lastKey === 37) 
     ship.speed = 0;  
@@ -64,6 +67,9 @@ if(gp) {
     if(gp.buttons[1].value == 1) {
       ship.charge(); 
     }
+    if(gp.buttons[5].value == 1) {
+      handlePause(); 
+    }
     else
       ship.reload();
   }); 
@@ -71,16 +77,23 @@ if(gp) {
 
 function handleFire() {
   if(app.paused)
-    app.unPause();
+    return;
   ship.loaded = true;
   ship.shoot();
 }
 
 function handleCharge() {
   if(app.paused)
-    app.unPause();
+    return;
   ship.loaded = true;
   ship.charge();
+}
+
+function handlePause() {
+  if(app.paused)
+    app.unPause();
+  else
+    app.pause();
 }
 
 function handleLeft() {
