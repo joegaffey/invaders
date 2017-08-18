@@ -41,7 +41,7 @@ var ship = new Ship();
 var mother = new Mother();
 var swarm = new Swarm();
 var grid = new Grid();
-
+// var lives = new Lives();
 
 setInterval(function() { 
   if(!app.paused)

@@ -91,3 +91,13 @@ body {
   text-align: center;
   color: #888888;
 }
+
+.lives {
+  position: fixed; 
+  left: 20px;
+  top: 20px;
+}
+
+.lives > img {
+  margin-right: 10px;
+}

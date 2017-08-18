@@ -1,4 +1,7 @@
 var Props = {};
+
+Props.PLAYER_LIVES = 3;
+
 Props.STAGE_RATIO = 4 / 3;
 Props.STAGE_HRES = 800;
 Props.STAGE_VRES = 600;
