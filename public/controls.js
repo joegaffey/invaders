@@ -19,6 +19,8 @@ var rightButton = document.querySelector('.rightControl');
 rightButton.addEventListener('touchstart', handleRight);
 rightButton.addEventListener('touchend', handleRightEnd);
 
+var lastKey = -1;
+
 window.addEventListener('keyup', function (e) {
   if(e.keyCode === 32) {
     handleFire();
