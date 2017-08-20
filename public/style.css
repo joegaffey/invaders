@@ -71,15 +71,29 @@ body {
 }
 
 .modal-content {
-  background-color: #552200;
-  margin: 25% auto; 
+  background-color: #331100;
+  margin: 20% auto; 
   padding: 20px;
   border: 1px solid #555;
-  width: 70%; 
+  width: 400px;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  color: #ffffff;
+  color: #aaaaaa;
+}
+
+.modal-content > table {
+  margin: 0 auto; 
+  text-align: left;
+}
+
+th {
+  padding-right: 20px; 
+  font-weight: bold;
+}
+
+td {
+  padding-right: 20px;
 }
 
 .score {
