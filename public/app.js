@@ -63,6 +63,29 @@ setInterval(function() {
   }
 }, Math.floor(Props.MOTHER_SHOOT_INTERVAL + Math.random() * Props.MOTHER_SHOOT_INTERVAL));
 
+
+if(Props.SERVER_AVAILABLE) {
+
+  fetch("/games", {
+      method: "POST",
+      body: JSON.stringify({})
+  })
+  .then(function(res){ return res.json(); })
+  .then(function(data){ app.game = data; });
+  
+  setInterval(function() { 
+      if(!app.game)
+        return;
+      fetch('/games/' + app.game.id + '/new-invaders/count').then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        console.log(data);
+        for(var i = 0; i < data.count; i++)
+          swarm.addEnemy();
+      });
+  }, Props.SERVER_POLL_INTERVAL);   
+}
+
 app.reset = function() {
   grid.reset();
   if(mother) {

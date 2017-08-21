@@ -9,6 +9,7 @@ class Swarm {
     this.xShift = 0;
     this.direction = 1;       
     this.enemyCount = 0;
+    
     for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) {
       this.addEnemy();
     }
