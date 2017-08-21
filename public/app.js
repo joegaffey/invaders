@@ -66,7 +66,7 @@ setInterval(function() {
 
 if(Props.SERVER_AVAILABLE) {
 
-  fetch("/games", {
+  fetch('/games', {
       method: "POST",
       body: JSON.stringify({})
   })
@@ -79,7 +79,6 @@ if(Props.SERVER_AVAILABLE) {
       fetch('/games/' + app.game.id + '/new-invaders/count').then(function(response) {
         return response.json();
       }).then(function(data) {
-        console.log(data);
         for(var i = 0; i < data.count; i++)
           swarm.addEnemy();
       });

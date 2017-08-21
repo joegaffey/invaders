@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="en">
 <link rel="manifest" href="manifest.json">
 <title>Invaders from...Space!</title>
 <meta content="user-scalable=0" name="viewport">
@@ -12,18 +14,10 @@
 <div class="graphicsCanvas"></div>
 <div class="controls">
   <div class="leftControl">
-    <svg height="100" width="100">
-      <polygon points="6,50 50,6 94,6 94,94 50,94"
-      stroke-linejoin="round"
-      style="fill:#ff0000;stroke:white;stroke-width:6px" />
-    </svg>
+    <img src="leftControl.svg">
   </div>
   <div class="rightControl">
-    <svg height="100" width="100">
-      <polygon points="6,6 50,6 94,50 50,94 6,94" 
-      stroke-linejoin="round"
-      style="fill:#ff0000;stroke:white;stroke-width:6px" />
-    </svg>
+    <img src="rightControl.svg">
   </div>
   <div class="chargeControl"></div>
   <div class="fireControl"></div>
@@ -34,13 +28,22 @@
   <div class="modal-content">
     <p id="optMessage"></p>
     <p id="scoreMessage"></p>
-    <p>Hit enter, tap/click <a href="javascript:app.unPause();">here</a> or joy5 to start!</p>
     <table>
-      <tr><th>Controls</th><th>Keyboard</th><th>Joystick</th></tr>
-      <tr><td>Fire</td><td>Space</td><td>Joy0</td></tr>
-      <tr><td>Energy</td><td>Ctrl</td><td>Joy1</td></tr>
-      <tr><td>Pause</td><td>Enter</td><td>Joy5</td></tr>
+      <tr><th>Control</th><th>Keyboard</th><th>Joystick</th><th>Touch</th></tr>
+      <tr>
+        <td>Move</td>
+        <td>Arrow keys</td>
+        <td>axes0</td>
+        <td class="moveIcons"> 
+          <img height="12" width="12" src="leftControl.svg">
+          <img height="12" width="12" src="rightControl.svg">
+        </td>
+      </tr>
+      <tr><td>Fire</td><td>Space</td><td>Joy0</td><td><div class="fireControlIcon"></div></td></tr>
+      <tr><td>Energy</td><td>Ctrl</td><td>Joy1</td><td><div class="energyControlIcon"></div></td></tr>
+      <tr><td>Start/Pause</td><td>Enter</td><td>Joy5</td><td>N/A</td></tr>
     </table>
+    <p><button onclick="app.unPause();">Start!</button></p>
   </div>
 </div>
   

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Racing bars</title>
+
+<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css">
+<!-- <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.17/c3.min.css"> -->
+
+<style>
+.chart {
+  width: 100%;
+  min-height: 400px;
+  pointer-events: none;
+}
+
+.c3-chart-text {
+  font-size: 28px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body translate="no" >
+<svg class="chart"></svg>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.17/c3.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script> -->
+
+<script>
+var chart = c3.generate({
+  bindto: d3.select('.chart'),
+  data: {
+    columns: [
+      ['A', 0],
+      ['B', 0],
+      ['C', 0],
+      ['D', 0]
+    ],
+    type: 'bar',
+    labels: true
+  },
+  axis: {
+    x: { show: false},
+    y: { show: false}
+  },
+  tooltip: {
+    show: false
+  },
+  legend: {
+    show: false
+  }
+});
+  
+const THRESHOLD = 1000;
+var a = 0, b = 0, c = 0, d = 0;
+  
+function updateBars() {
+  chart.load({
+      rows: [
+          ['A', 'B', 'C', 'D'],
+          [a, b, c, d]
+      ]
+  });
+}
+  
+var barDeltas = [0,0,0,0];
+function checkThreshold(params) {
+  for(var i = 0; i < params.length; i++) {
+    barDeltas[i] += parseInt(params[i]); 
+    if(barDeltas[i] >= THRESHOLD) {
+      barDeltas[i] = 0;
+      postInvader();
+    }
+  }
+}
+  
+function postInvader() {
+  fetch('/games/' + game + '/invaders', {
+    method: "POST",
+    body: JSON.stringify({})
+  });
+}
+  
+var tmpStr = '';
+document.onkeydown = function(event) {
+  var key_press = String.fromCharCode(event.keyCode);
+  if(key_press === '\r') {
+    var data = tmpStr.split(',');
+    checkThreshold(data);
+    a += parseInt(data[0]);
+    b += parseInt(data[1]); 
+    c += parseInt(data[2]);
+    d += parseInt(data[3]);    
+    updateBars();
+    tmpStr = '';
+  }
+  else
+    tmpStr = tmpStr + event.key;
+}
+
+var game = -1;
+
+fetch('/games').then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      game = data.length - 1;
+    });
+
+</script>
+</body>
+</html>
+ 
