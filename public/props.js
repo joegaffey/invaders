@@ -1,5 +1,8 @@
 var Props = {};
 
+Props.SERVER_AVAILABLE = false;
+Props.SERVER_POLL_INTERVAL = 3000;
+
 Props.PLAYER_LIVES = 3;
 
 Props.STAGE_RATIO = 4 / 3;
