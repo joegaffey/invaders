@@ -48,12 +48,21 @@ window.addEventListener('keydown', function (e) {
   }
 });
 
-var gp = navigator.getGamepads()[0]; 
-if(gp) {
-  app.ticker.add(function() {
-    var gp = navigator.getGamepads()[0];
-    var reset = true;
-    var analogueLR = gp.axes[0];
+var gpIndex = -1;
+var pads = navigator.getGamepads();
+for(var i in pads) {
+  if(pads[i].timestamp > 0) {
+    gpIndex = i;
+    break;
+  }
+} 
+
+var resetPause = true;
+var resetCharge = true;
+function checkGamepad() {
+  var gp = navigator.getGamepads()[gpIndex];
+  var analogueLR = gp.axes[0];
+  try {
     if(analogueLR < -0.5) {
       ship.speed = -Props.SHIP_SPEED;  
     } 
@@ -63,19 +72,33 @@ if(gp) {
     else {
       ship.speed = 0; 
     }
-    if(gp.buttons[0].value == 1) {
+    if(gp.buttons[0].value === 1) {
       ship.shoot(); 
-    }
-    if(gp.buttons[1].value == 1) {
-      ship.charge(); 
-    }
-    if(gp.buttons[5].value == 1) {
-      handlePause(); 
     }
     else
       ship.reload();
-  }); 
+    if(gp.buttons[1].value === 1) {
+      if(resetCharge) {
+        ship.charge();
+        resetCharge = false;
+      }
+    }
+    else
+      resetCharge = true;
+    if(gp.buttons[9].value === 1) {
+      if(resetPause) {
+        handlePause();
+        resetPause = false;
+      }
+    }
+    else
+      resetPause = true;
+  }
+  catch(e) { console.log(e); }
+  window.requestAnimationFrame(checkGamepad);
 }
+if(gpIndex > -1)
+  window.requestAnimationFrame(checkGamepad);
 
 function handleFire() {
   if(app.paused)
