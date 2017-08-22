@@ -59,18 +59,22 @@ for(var i in pads) {
 
 var resetPause = true;
 var resetCharge = true;
+var resetSpeed = false;
 function checkGamepad() {
   var gp = navigator.getGamepads()[gpIndex];
   var analogueLR = gp.axes[0];
   try {
     if(analogueLR < -0.5) {
       ship.speed = -Props.SHIP_SPEED;  
+      resetSpeed = true;
     } 
     else if(analogueLR > 0.5) {
-      ship.speed = Props.SHIP_SPEED; 
+      ship.speed = Props.SHIP_SPEED;
+      resetSpeed = true;
     } 
-    else {
+    else if(resetSpeed) {
       ship.speed = 0; 
+      resetSpeed = false;
     }
     if(gp.buttons[0].value === 1) {
       ship.shoot(); 
