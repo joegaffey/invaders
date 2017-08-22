@@ -104,7 +104,6 @@ var tmpStr = '';
 document.onkeydown = function(event) {
   var key_press = String.fromCharCode(event.keyCode);
   if(key_press == '\r') {
-    console.log(tmpStr);
     var data = tmpStr.split(',');
     if(SEND_COUNTS)
        sendEventCount(data.reduce((a, b) => parseInt(a) + parseInt(b), 0));
