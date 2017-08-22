@@ -15,12 +15,12 @@ function initAudio() {
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fexplosion.wav?1499375911491',
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fsound-frogger-hop.wav?1501606884861'
     
-      // '/assets/shoot.wav',
-      // '/assets/fastinvader1.wav',
-      // '/assets/extraShip.wav',
-      // '/assets/ufo_highpitch.wav',
-      // '/assets/explosion.wav',
-      // '/assets/sound-frogger-hop.wav'      
+      // './assets/shoot.wav',
+      // './assets/fastinvader1.wav',
+      // './assets/extraShip.wav',
+      // './assets/ufo_highpitch.wav',
+      // './assets/explosion.wav',
+      // './assets/sound-frogger-hop.wav'      
     ],
     GameAudio.finishedLoading);
   bufferLoader.load();

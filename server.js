@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var EVENTS_URL = 'http://invaders-from-space.glitch.me/games';
+var PORT = 8585;
 
 var games = [];
 
@@ -96,6 +97,6 @@ app.get('/events/:id', function(req, res) {
   });  
 });
 
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(process.env.PORT || PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
