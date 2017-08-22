@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var request = require('request');
+
+var EVENTS_URL = 'http://invaders-from-space.glitch.me/games';
 
 var games = [];
 
@@ -82,6 +85,15 @@ app.delete('/games/:id/invaders', function(req, res) {
   games[req.params.id].invaders = [];
   games[req.params.id].newInvaders = [];
   res.send('OK');
+});
+
+//Temporary test path
+app.get('/events/:id', function(req, res) {
+  var data = {};
+  data.events = req.params.id;
+  var data = request(EVENTS_URL, function (error, response, body) {
+    res.send(body);
+  });  
 });
 
 var listener = app.listen(process.env.PORT, function () {

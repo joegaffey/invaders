@@ -20,6 +20,8 @@ class Enemy extends PIXI.Sprite {
   }
   
   moveToStartPosition() {
+    if(app.paused)
+      return;
     if(this.x === this.startX && this.y === this.startY) {
       this.inPosition = true;
       this.ticker.remove(this.moveToStartPosition, this);
