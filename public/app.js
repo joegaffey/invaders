@@ -63,9 +63,7 @@ setInterval(function() {
   }
 }, Math.floor(Props.MOTHER_SHOOT_INTERVAL + Math.random() * Props.MOTHER_SHOOT_INTERVAL));
 
-
 if(Props.SERVER_AVAILABLE) {
-
   fetch('/games', {
       method: "POST",
       body: JSON.stringify({})
