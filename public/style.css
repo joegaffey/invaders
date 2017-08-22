@@ -32,7 +32,7 @@ body {
 }
 
 .rightControl {
-  left: 200px;
+  left: 180px;
 }
 
 .fireControl {
@@ -58,6 +58,28 @@ body {
   border-style: solid;
 }
 
+.energyControlIcon, .fireControlIcon {
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+  border-color: #ffffff;
+  border-width: 1px;
+  border-style: solid;
+  opacity: 0.5;
+}
+
+.moveIcons {
+  opacity: 0.5;
+}
+
+.energyControlIcon {
+  background-color: #00ff00;
+}
+
+.fireControlIcon {
+  background-color: #ff0000;
+}
+
 .modal {
   position: fixed; 
   z-index: 1; 
@@ -75,11 +97,15 @@ body {
   margin: 20% auto; 
   padding: 20px;
   border: 1px solid #555;
-  width: 400px;
+  width: 450px;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   color: #aaaaaa;
+}
+
+button {
+  font-size: large;
 }
 
 .modal-content > table {
