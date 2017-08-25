@@ -3,8 +3,10 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 
-var EVENTS_URL = 'http://invaders-from-space.glitch.me/games';
 var PORT = 8585;
+var EVENTS_URL = 'http://invaders-from-space.glitch.me/remote-events/';
+var CHECK_THRESHOLD = true;
+var EVENTS_THRESHOLD = 100;
 
 var games = [];
 
@@ -71,9 +73,12 @@ app.put('/games/:id/invaders/count', function(req, res) {
 
 app.post('/games/:id/invaders', function(req, res) {
   var invader = req.body;
-  invader.id = games[req.params.id].invaders.length;
-  games[req.params.id].invaders.push(req.body);
-  games[req.params.id].newInvaders.push(req.body);
+  var gameId = req.params.id;
+  if(gameId === 'latest')
+    gameId = games.length -1;
+  invader.id = games[gameId].invaders.length;
+  games[gameId].invaders.push(req.body);
+  games[gameId].newInvaders.push(req.body);
   res.send(invader);
 });
 
@@ -88,13 +93,31 @@ app.delete('/games/:id/invaders', function(req, res) {
   res.send('OK');
 });
 
-//Temporary test path
-app.get('/events/:id', function(req, res) {
+// Proxy and threshold check for test purposes
+var eventCount = 0;
+app.get('/events/:count', function(req, res) {
+  var newEventCount = parseInt(req.params.count);
+  eventCount += newEventCount;
+  if(CHECK_THRESHOLD && eventCount >= EVENTS_THRESHOLD) {  
+    var invaders = Math.round(eventCount / EVENTS_THRESHOLD);
+    eventCount = eventCount % EVENTS_THRESHOLD;
+    if(games.length > 0) {
+      for(var i = 0; i < invaders; i++) {
+        games[games.length - 1].invaders.push({});
+        games[games.length - 1].newInvaders.push({});
+      }
+    };  
+  }
   var data = {};
-  data.events = req.params.id;
-  var data = request(EVENTS_URL, function (error, response, body) {
-    res.send(body);
+  data.events = req.params.count;
+  data = request(EVENTS_URL + newEventCount, function (error, response, body) {
+    res.send(body);    
   });  
+});
+
+// Test purposes
+app.get('/remote-events/:count', function(req, res) {
+  res.send('{ "count":' + req.params.count + ' }');
 });
 
 var listener = app.listen(process.env.PORT || PORT, function () {
