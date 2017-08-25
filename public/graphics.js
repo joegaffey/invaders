@@ -2,7 +2,7 @@ var GameGraphics = {};
 
 GameGraphics.getShipGraphics = function() {
   var graphics = new PIXI.Graphics();
-  graphics.beginFill(0x0033FF);
+  graphics.beginFill(0x44AAFF);
   graphics.moveTo(0,0);
   graphics.lineTo(0, -15);
   graphics.lineTo(10, -15);

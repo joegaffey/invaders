@@ -14,6 +14,7 @@ Props.SUCCESS_MESSAGE = 'You have saved the planet!';
 
 Props.SHIP_VERT_ADJUST = 30;
 Props.SHIP_SPEED = 3;
+Props.SHIP_SHOOT_DELAY = 10;
 
 Props.GRID_WIDE = 5;
 Props.GRID_DEEP = 4;
