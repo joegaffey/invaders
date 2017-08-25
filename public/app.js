@@ -72,14 +72,16 @@ if(Props.SERVER_AVAILABLE) {
   .then(function(data){ app.game = data; });
   
   setInterval(function() { 
-      if(!app.game)
-        return;
-      fetch('/games/' + app.game.id + '/new-invaders/count').then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        for(var i = 0; i < data.count; i++)
-          swarm.addEnemy();
-      });
+    if(app.paused)
+      return;
+    if(!app.game)
+      return;
+    fetch('/games/' + app.game.id + '/new-invaders/count').then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      for(var i = 0; i < data.count; i++)
+        swarm.addEnemy();
+    });
   }, Props.SERVER_POLL_INTERVAL);   
 }
 

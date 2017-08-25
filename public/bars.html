@@ -59,8 +59,6 @@ var chart = c3.generate({
   }
 });
   
-const CHECK_THRESHOLD = true;
-const THRESHOLD = 100;
 const SEND_COUNTS = true;
 
 var a = 0, b = 0, c = 0, d = 0;
@@ -73,25 +71,7 @@ function updateBars() {
       ]
   });
 }
-  
-var barDeltas = [0,0,0,0];
-function checkThreshold(params) {
-  for(var i = 0; i < params.length; i++) {
-    barDeltas[i] += parseInt(params[i]); 
-    if(barDeltas[i] >= THRESHOLD) {
-      barDeltas[i] = 0;
-      postInvader();
-    }
-  }
-}
-  
-function postInvader() {
-  fetch('/games/' + game + '/invaders', {
-    method: "POST",
-    body: JSON.stringify({})
-  });
-}
-  
+   
 function sendEventCount(count) {
   fetch('/events/' + count).then(function(response) {
     return response.text();
@@ -105,10 +85,9 @@ document.onkeydown = function(event) {
   var key_press = String.fromCharCode(event.keyCode);
   if(key_press == '\r') {
     var data = tmpStr.split(',');
+    var totalEvents = data.reduce((a, b) => parseInt(a) + parseInt(b), 0);
     if(SEND_COUNTS)
-       sendEventCount(data.reduce((a, b) => parseInt(a) + parseInt(b), 0));
-    if(CHECK_THRESHOLD)
-      checkThreshold(data);
+       sendEventCount(totalEvents);
     a += parseInt(data[0]);
     b += parseInt(data[1]); 
     c += parseInt(data[2]);
