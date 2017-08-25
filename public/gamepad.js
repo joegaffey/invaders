@@ -10,6 +10,7 @@ for(var i in pads) {
 var resetPause = true;
 var resetCharge = true;
 var resetSpeed = false;
+var resetShoot = false;
 function checkGamepad() {
   var gp = navigator.getGamepads()[gpIndex];
   var analogueLR = gp.axes[0];
@@ -26,19 +27,25 @@ function checkGamepad() {
       Controls.handleStop();
       resetSpeed = false;
     }
+    
     if(gp.buttons[0].value === 1) {
-      ship.shoot(); 
+      if(resetShoot) {
+        Controls.handleFire();
+        resetShoot = false;
+      }
     }
     else
-      ship.reload();
+      resetShoot = true;
+    
     if(gp.buttons[1].value === 1) {
       if(resetCharge) {
-        ship.charge();
+        Controls.handleCharge();
         resetCharge = false;
       }
     }
     else
       resetCharge = true;
+    
     if(gp.buttons[9].value === 1) {
       if(resetPause) {
         Controls.handlePause();
