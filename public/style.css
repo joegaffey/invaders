@@ -25,14 +25,18 @@ body {
 .leftControl, .rightControl {
   position: absolute;
   bottom: 50px;
+  height: 100px;
+  width: 100px;
 }
 
 .leftControl {
   left: 50px;
+  background: url(leftControl.svg) no-repeat;
 }
 
 .rightControl {
   left: 180px;
+  background: url(rightControl.svg) no-repeat;
 }
 
 .fireControl {

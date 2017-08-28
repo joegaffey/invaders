@@ -1,6 +1,6 @@
 var Props = {};
 
-Props.SERVER_AVAILABLE = true;
+Props.SERVER_AVAILABLE = false;
 Props.SERVER_POLL_INTERVAL = 3000;
 
 Props.PLAYER_LIVES = 3;
@@ -46,6 +46,7 @@ Props.ENEMY_BULLET_SPEED = 5;
 Props.ENEMY_MAX_HITS = 5;
 Props.ENEMY_KILL_POINTS = 50;
 Props.ENEMY_HIT_POINTS = 10;
+Props.ENEMY_SPEED = 10;
 
 Props.BULLET_SPEED = 8;
 
