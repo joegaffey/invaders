@@ -24,7 +24,7 @@ class Swarm {
         enemy.index = i;
         enemy.x = this.getEnemyXByIndex(i);
         enemy.y = this.getEnemyYByIndex(i);
-        enemy.tint = Props.ENEMY_COLORS[this.getRowByIndex(i) % Props.ENEMY_COLORS.length];
+        enemy.tint = Props.ENEMY_COLORS[(Math.floor(i / this.columns)) % Props.ENEMY_COLORS.length];
         this.enemies[i] = enemy;
         app.stage.addChild(enemy);
         this.enemyCount++;
@@ -35,11 +35,11 @@ class Swarm {
   }
   
   getEnemyXByIndex(i) {
-    return this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+    return this.xPos + (i % this.columns) * Props.ENEMY_GAP;
   }
   
   getEnemyYByIndex(i) {
-    return this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+    return this.yPos + (Math.floor(i / this.columns)) * Props.ENEMY_GAP;
   }
   
   moveEnemyIntoPosition(enemy, i) {
@@ -48,14 +48,6 @@ class Swarm {
     enemy.startX = this.getEnemyXByIndex(i);
     enemy.startY = this.getEnemyYByIndex(i);
     enemy.ticker.add(enemy.moveToStartPosition, enemy);
-  }
-  
-  getColumnByIndex(i) {
-    return i % this.columns;
-  }
-  
-  getRowByIndex(i) {
-    return Math.floor(i / this.columns);
   }
   
   shiftDown() {
