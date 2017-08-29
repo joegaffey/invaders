@@ -3,10 +3,18 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 
-var PORT = 8585;
-var EVENTS_URL = 'http://invaders-from-space.glitch.me/remote-events/';
-var CHECK_THRESHOLD = true;
-var EVENTS_THRESHOLD = 100;
+var PORT = process.argv[2];
+if(!PORT)
+  PORT = 8585;
+
+var EVENTS_URL = process.argv[3];
+if(!EVENTS_URL) 
+  EVENTS_URL = "/remote-events/";
+
+var EVENTS_THRESHOLD = parseInt(process.argv[4]);
+var CHECK_THRESHOLD = false;
+if(EVENTS_THRESHOLD && EVENTS_THRESHOLD > 0)
+  CHECK_THRESHOLD = true;
 
 var games = [];
 

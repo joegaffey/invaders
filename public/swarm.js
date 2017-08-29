@@ -10,8 +10,10 @@ class Swarm {
     this.direction = 1;       
     this.enemyCount = 0;
     
-    for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) {
-      this.addEnemy();
+    if(!Props.SERVER_AVAILABLE) {
+      for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) {
+        this.addEnemy();
+      }
     }
   }
   
