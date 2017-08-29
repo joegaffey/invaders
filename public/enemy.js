@@ -24,19 +24,11 @@ class Enemy extends PIXI.Sprite {
       return;
     if(Math.abs(this.x - this.startX) < Props.ENEMY_SPEED && Math.abs(this.y - this.startY) < Props.ENEMY_SPEED) {
       this.inPosition = true;
+      this.x = swarm.getEnemyXByIndex(this.index);
+      this.y = swarm.getEnemyYByIndex(this.index);
       this.ticker.remove(this.moveToStartPosition, this);
     }
-    else {
-      
-    //   if(this.x > this.startX)
-    //     this.x--;
-    //   else if(this.x < this.startX)
-    //     this.x++
-    //   if(this.y > this.startY)
-    //     this.y--;
-    //   else if(this.y < this.startY)
-    //     this.y++
-    
+    else {   
       var dirX = this.startX - this.x;
       var dirY = this.startY - this.y;
 

@@ -21,8 +21,9 @@ class Swarm {
     for(var i  = 0; i < this.enemies.length + 1; i++) {
       if(!this.enemies[i]) {
         var enemy = new Enemy();
-        enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
-        enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+        enemy.index = i;
+        enemy.x = this.getEnemyXByIndex(i);
+        enemy.y = this.getEnemyYByIndex(i);
         enemy.tint = Props.ENEMY_COLORS[this.getRowByIndex(i) % Props.ENEMY_COLORS.length];
         this.enemies[i] = enemy;
         app.stage.addChild(enemy);
@@ -33,11 +34,19 @@ class Swarm {
     }
   }
   
+  getEnemyXByIndex(i) {
+    return this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+  }
+  
+  getEnemyYByIndex(i) {
+    return this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+  }
+  
   moveEnemyIntoPosition(enemy, i) {
     enemy.x = mother.x;
     enemy.y = mother.y; 
-    enemy.startX = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
-    enemy.startY = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;
+    enemy.startX = this.getEnemyXByIndex(i);
+    enemy.startY = this.getEnemyYByIndex(i);
     enemy.ticker.add(enemy.moveToStartPosition, enemy);
   }
   
@@ -58,7 +67,7 @@ class Swarm {
           app.stop(Props.DEATH_MESSAGE);
           return;
         }           
-        enemy.y = this.yPos + this.getRowByIndex(i) * Props.ENEMY_GAP;         
+        enemy.y = this.getEnemyYByIndex(i);         
       }
     }.bind(this));
   }
@@ -68,7 +77,7 @@ class Swarm {
     this.xShift--;
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition)
-         enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+         enemy.x = this.getEnemyXByIndex(i);
     }.bind(this));
   }
 
@@ -77,7 +86,7 @@ class Swarm {
     this.xShift++;
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition)
-        enemy.x = this.xPos + this.getColumnByIndex(i) * Props.ENEMY_GAP;
+        enemy.x = this.getEnemyXByIndex(i);
     }.bind(this));
   } 
   
