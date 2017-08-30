@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
+var props = require('./public/props.js');
 
 var PORT = process.argv[2];
 if(!PORT)
@@ -121,6 +122,15 @@ app.get('/events/:count', function(req, res) {
   data = request(EVENTS_URL + newEventCount, function (error, response, body) {
     res.send(body);    
   });  
+});
+
+app.get('/properties', function(req, res) {
+  res.send(props);
+});
+
+app.put('/properties', function(req, res) {
+  props = req.body;
+  res.send(props);
 });
 
 // Test purposes

@@ -61,3 +61,5 @@ Props.EXPLOSION_SMALL = 0.25;
 Props.EXPLOSION_MEDIUM = 0.5;
 Props.EXPLOSION_LARGE = 1;
 Props.EXPLOSION_HUGE = 5;
+
+module.exports.props = Props;
