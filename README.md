@@ -11,7 +11,8 @@ I created this game to explore and practice modern JavaScript. The code is mainl
 
 Originally a [pen](https://codepen.io/joegaffey/pen/KqgGNE), invaders was moved to [Glitch](https://glitch.com/edit/#!/invaders-from-space) when it needed more room to grow.
 
-The back-end is optional and is turned off in the client by default (usually...WIP). Use the Props.SERVER_AVAILABLE setting to enable. When the backend is enabled, POST an invader (e.g. {}) to:
+The back-end is optional and is turned off in the client by default (usually...WIP). Use the Props.SERVER_AVAILABLE setting to enable. When the backend is enabled there are no invaders initially.
+To create one POST any JSON object e.g. {} to:
 
 [http://invaders-from-space.glitch.me/games/{id}/invaders](http://invaders-from-space.glitch.me/games/{id}/invaders) 
 

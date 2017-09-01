@@ -105,6 +105,13 @@ class Ship extends PIXI.Sprite {
       return;
     }
   }
+  
+  checkCollision(enemy) {
+    if(enemy && isIntersecting(enemy, this)) {
+      enemy.explode();
+      this.hit();
+    }
+  }
 
   hit() {
     GameAudio.explosionSound();

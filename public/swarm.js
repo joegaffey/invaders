@@ -55,11 +55,13 @@ class Swarm {
     this.yPos += Props.SWARM_V_STEP;   
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition) {
-        if(enemy.y > Props.GRID_TOP - Props.ENEMY_GAP) {
+        if(enemy.y > Props.STAGE_VRES - enemy.height) {
           app.stop(Props.DEATH_MESSAGE);
           return;
         }           
-        enemy.y = this.getEnemyYByIndex(i);         
+        enemy.y = this.getEnemyYByIndex(i);       
+        grid.checkCellCollision(enemy);
+        ship.checkCollision(enemy);
       }
     }.bind(this));
   }
@@ -127,12 +129,7 @@ class Swarm {
       if(bullet && enemy && isIntersecting(bullet, enemy)) {
         bullet.ticker.stop();
         bullet.destroy(); 
-        if(enemy.hit()) {
-          this.enemies[i] = null;
-          this.enemyCount--;
-          if(this.enemyCount === 0 && !mother)
-            app.stop(Props.SUCCESS_MESSAGE);
-        }
+        enemy.hit();
         return;
       }
     }.bind(this));

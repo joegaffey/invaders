@@ -26,6 +26,8 @@ class Enemy extends PIXI.Sprite {
       this.inPosition = true;
       this.x = swarm.getEnemyXByIndex(this.index);
       this.y = swarm.getEnemyYByIndex(this.index);
+      grid.checkCellCollision(this);
+      ship.checkCollision(this);
       this.ticker.remove(this.moveToStartPosition, this);
     }
     else {   
@@ -38,17 +40,27 @@ class Enemy extends PIXI.Sprite {
 
       this.x += dirX * Props.ENEMY_SPEED;
       this.y += dirY * Props.ENEMY_SPEED;
+      grid.checkCellCollision(this);
+      ship.checkCollision(this);
     }
+  }
+  
+  explode() {
+    swarm.enemies[this.index] = null;
+    swarm.enemyCount--;
+    this.ticker.stop();
+    Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
+    this.destroy();
+    GameAudio.explosionSound();
+    if(swarm.enemyCount === 0 && !mother)
+      app.stop(Props.SUCCESS_MESSAGE);
   }
   
   hit() {
     this.hits++;
     GameAudio.alienHitSound();
     if(this.hits == Props.ENEMY_MAX_HITS) {
-      GameAudio.explosionSound();
-      this.ticker.stop();
-      Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
-      this.destroy();
+      this.explode();
       app.addScore(Props.ENEMY_KILL_POINTS);
       return true;
     }
