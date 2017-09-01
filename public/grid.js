@@ -11,24 +11,31 @@ class Grid {
     cell.anchor.x = 0.5;
     cell.anchor.y = 0.5;
     cell.hits = 0;
+    
     cell.hit = function(i) {
       GameAudio.cellHitSound();
       cell.hits++;
       if(cell.hits > Props.CELL_MAX_HITS) {
-        GameAudio.explosionSound();
-        Effects.explode(cell.x, cell.y, Props.EXPLOSION_LARGE);
-        cell.destroy();
-        grid.removeCell(i);
+        cell.explode(i);
       }
       else {
         cell.updateCell();
       }
     };
+    
+    cell.explode = function(i) {
+      GameAudio.explosionSound();
+      Effects.explode(cell.x, cell.y, Props.EXPLOSION_LARGE);
+      cell.destroy();
+      grid.removeCell(i);
+    };
+    
     cell.updateCell = function() {
       cell.scale.x = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
       cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
       cell.tint = Props.CELL_TINTS[cell.hits];
-    }
+    };
+    
     cell.addEnergy = function() {
       if(cell.hits > 0) {
         cell.hits--;
@@ -38,6 +45,7 @@ class Grid {
       }
       return false;
     };
+    
     return cell;
   }
   
@@ -73,6 +81,17 @@ class Grid {
         bullet.ticker.stop();
         bullet.destroy(); 
         cell.hit(i);
+        return true;
+      }
+    });
+    return false;
+  }
+  
+  checkCellCollision(enemy) {
+    this.cells.forEach(function(cell, i) {
+      if(enemy && cell && isIntersecting(enemy, cell)) {
+        cell.explode(i);
+        enemy.explode();
         return true;
       }
     });
