@@ -58,13 +58,15 @@ class Enemy extends PIXI.Sprite {
   
   hit() {
     this.hits++;
-    GameAudio.alienHitSound();
     if(this.hits == Props.ENEMY_MAX_HITS) {
-      this.explode();
       app.addScore(Props.ENEMY_KILL_POINTS);
+      this.explode();      
     }
-    Effects.explode(this.x, this.y, Props.EXPLOSION_TINY);
-    app.addScore(Props.ENEMY_HIT_POINTS);
+    else {
+      Effects.explode(this.x, this.y, Props.EXPLOSION_TINY);
+      app.addScore(Props.ENEMY_HIT_POINTS);
+      GameAudio.alienHitSound();
+    }
   }
   
   shoot() {

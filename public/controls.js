@@ -2,14 +2,14 @@ class Controls {
   static handleFire() {
     if(app.paused)
       return;
-    ship.loaded = true;
+    //ship.loaded = true;
     ship.shoot();
   }
 
   static handleCharge() {
     if(app.paused)
       return;
-    ship.loaded = true;
+    //ship.loaded = true;
     ship.charge();
   }
 

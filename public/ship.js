@@ -20,24 +20,14 @@ class Ship extends PIXI.Sprite {
   }
   
   shoot() {
-    if(this.loaded) {
-      GameAudio.shootSound();
-      this.addBullet(this.x, this.y - this.height / 2);
-      this.loaded = false;
-    }
+    GameAudio.shootSound();
+    this.addBullet(this.x, this.y - this.height / 2);
   }
   
   charge() {
-    if(this.loaded) {
-      GameAudio.shootSound();
-      this.addEnergy(this.x, this.y - this.height / 2);
-      this.loaded = false;
-    }
+    GameAudio.shootSound();
+    this.addEnergy(this.x, this.y - this.height / 2);
   }
-  
-  reload() {
-    this.loaded = true;
-  } 
   
   reset() {
     this.x = Props.STAGE_HRES / 2;

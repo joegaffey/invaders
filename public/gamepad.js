@@ -11,6 +11,7 @@ var resetPause = true;
 var resetCharge = true;
 var resetSpeed = false;
 var resetShoot = false;
+
 function checkGamepad() {
   var gp = navigator.getGamepads()[gpIndex];
   var analogueLR = gp.axes[0];
