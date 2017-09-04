@@ -63,4 +63,5 @@ Props.EXPLOSION_LARGE = 1;
 Props.EXPLOSION_HUGE = 5;
 Props.EXPLOSION_SCALE = 0.2;
 
-module.exports.props = Props;
+if (typeof module !== 'undefined' && module.exports) 
+  module.exports.props = Props;
