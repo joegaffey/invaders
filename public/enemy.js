@@ -62,10 +62,9 @@ class Enemy extends PIXI.Sprite {
     if(this.hits == Props.ENEMY_MAX_HITS) {
       this.explode();
       app.addScore(Props.ENEMY_KILL_POINTS);
-      return true;
     }
+    Effects.explode(this.x, this.y, Props.EXPLOSION_TINY);
     app.addScore(Props.ENEMY_HIT_POINTS);
-    return false;
   }
   
   shoot() {
