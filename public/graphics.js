@@ -91,3 +91,19 @@ GameGraphics.getCellGraphics = function() {
   graphics.boundsPadding = 0;
   return graphics.generateTexture();
 }
+
+GameGraphics.getAssistGraphics = function() {
+  var graphics = new PIXI.Graphics();
+  graphics.beginFill(0x33BB33);
+  graphics.lineStyle(4, 0x88FF88, 1);
+  graphics.moveTo(0,0);
+  graphics.lineTo(20, 20);
+  graphics.lineTo(60, 20);
+  graphics.lineTo(80, 0);
+  graphics.lineTo(60, -20);
+  graphics.lineTo(20, -20);
+  graphics.lineTo(0, 0);
+  graphics.endFill();
+  graphics.boundsPadding = 0;
+  return graphics.generateTexture();
+}

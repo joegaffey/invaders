@@ -46,12 +46,12 @@ class Enemy extends PIXI.Sprite {
   }
   
   explode() {
-    swarm.enemies[this.index] = null;
     swarm.enemyCount--;
-    this.ticker.stop();
-    Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
-    this.destroy();
+    swarm.enemies[this.index] = null;
     GameAudio.explosionSound();
+    Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
+    this.ticker.stop();
+    this.destroy();
     if(swarm.enemyCount === 0 && !mother)
       app.stop(Props.SUCCESS_MESSAGE);
   }
@@ -70,7 +70,7 @@ class Enemy extends PIXI.Sprite {
   }
   
   shoot() {
-    this.addEnemyBullet(this.x, this.y - this.height / 2);
+    this.addEnemyBullet(this.x, this.y + this.height / 2);
   }
   
   addEnemyBullet(x, y) {    

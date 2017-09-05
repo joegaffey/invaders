@@ -9,12 +9,6 @@ class Swarm {
     this.xShift = 0;
     this.direction = 1;       
     this.enemyCount = 0;
-    
-    if(!Props.SERVER_AVAILABLE) {
-      for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) {
-        this.addEnemy();
-      }
-    }
   }
   
   addEnemy() {
@@ -32,6 +26,10 @@ class Swarm {
         return;
       }
     }
+  }
+  
+  destroyEnemy(i) {
+    this.enemies[i].explode();
   }
   
   getEnemyXByIndex(i) {
@@ -55,11 +53,11 @@ class Swarm {
     this.yPos += Props.SWARM_V_STEP;   
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition) {
-        if(enemy.y > Props.STAGE_VRES - enemy.height) {
+        if(enemy.position.y > Props.STAGE_VRES - enemy.height) {
           app.stop(Props.DEATH_MESSAGE);
           return;
         }           
-        enemy.y = this.getEnemyYByIndex(i);       
+        enemy.position.y = this.getEnemyYByIndex(i);       
         grid.checkCellCollision(enemy);
         ship.checkCollision(enemy);
       }
@@ -71,7 +69,7 @@ class Swarm {
     this.xShift--;
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition)
-         enemy.x = this.getEnemyXByIndex(i);
+         enemy.position.x = this.getEnemyXByIndex(i);
     }.bind(this));
   }
 
@@ -80,7 +78,7 @@ class Swarm {
     this.xShift++;
     this.enemies.forEach(function(enemy, i) {
       if(enemy && enemy.inPosition)
-        enemy.x = this.getEnemyXByIndex(i);
+        enemy.position.x = this.getEnemyXByIndex(i);
     }.bind(this));
   } 
   
