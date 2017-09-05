@@ -41,6 +41,7 @@ var ship = new Ship();
 var mother = new Mother(); 
 var swarm = new Swarm();
 var grid = new Grid();
+//var assist = new Assist();
 // var lives = new Lives(); 
 
 setInterval(function() { 
@@ -82,13 +83,18 @@ if(Props.SERVER_AVAILABLE) {
       return;
     if(!app.game)
       return;
-    fetch('/games/' + app.game.id + '/new-invaders/count').then(function(response) {
+    fetch('/games/' + app.game.id).then(function(response) {
       return response.json();
     }).then(function(data) {
-      for(var i = 0; i < data.count; i++)
+      for(var i = 0; i < data.newInvaders.length; i++)
         swarm.addEnemy();
+      //assist.destroy(data.destroyedInvaders.length);
     });
   }, Props.SERVER_POLL_INTERVAL);   
+}
+else {
+  for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) 
+    swarm.addEnemy();
 }
 
 app.reset = function() {
