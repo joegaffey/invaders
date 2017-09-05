@@ -2,14 +2,12 @@ class Controls {
   static handleFire() {
     if(app.paused)
       return;
-    //ship.loaded = true;
     ship.shoot();
   }
 
   static handleCharge() {
     if(app.paused)
       return;
-    //ship.loaded = true;
     ship.charge();
   }
 
@@ -18,6 +16,13 @@ class Controls {
       app.unPause();
     else
       app.pause();
+  }
+  
+  static handleReset() {
+    if(app.paused) {
+      app.reset();
+      app.unPause();
+    }
   }
 
   static handleLeft() {
