@@ -126,10 +126,10 @@ class Swarm {
 
   checkHit(bullet) {
     this.enemies.forEach(function(enemy, i) {
-      if(bullet && enemy && isIntersecting(bullet, enemy)) {
+      if(enemy && bullet && isIntersecting(bullet, enemy)) {
+        enemy.hit();
         bullet.ticker.stop();
         bullet.destroy(); 
-        enemy.hit();
         return;
       }
     }.bind(this));
