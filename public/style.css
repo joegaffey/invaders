@@ -13,7 +13,7 @@ body {
 
 .graphicsCanvas {
   width: 100%;
-  margin: -40px;
+  margin-top: -40px;
 }
 
 .graphicsCanvas > canvas {
