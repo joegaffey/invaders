@@ -94,15 +94,9 @@ GameGraphics.getCellGraphics = function() {
 
 GameGraphics.getAssistGraphics = function() {
   var graphics = new PIXI.Graphics();
-  graphics.beginFill(0x33BB33);
-  graphics.lineStyle(4, 0x88FF88, 1);
-  graphics.moveTo(0,0);
-  graphics.lineTo(20, 20);
-  graphics.lineTo(60, 20);
-  graphics.lineTo(80, 0);
-  graphics.lineTo(60, -20);
-  graphics.lineTo(20, -20);
-  graphics.lineTo(0, 0);
+  graphics.beginFill(0x44AAFF);
+  graphics.drawEllipse(50, 0, 40, 10);
+  graphics.drawEllipse(50, 0, 15, 15);
   graphics.endFill();
   graphics.boundsPadding = 0;
   return graphics.generateTexture();

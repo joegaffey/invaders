@@ -41,7 +41,7 @@ var ship = new Ship();
 var mother = new Mother(); 
 var swarm = new Swarm();
 var grid = new Grid();
-//var assist = new Assist();
+var assist = new Assist();
 // var lives = new Lives(); 
 
 setInterval(function() { 
@@ -88,7 +88,7 @@ if(Props.SERVER_AVAILABLE) {
     }).then(function(data) {
       for(var i = 0; i < data.newInvaders.length; i++)
         swarm.addEnemy();
-      //assist.destroy(data.destroyedInvaders.length);
+      assist.destroy(data.destroyedInvaders.length);
     });
   }, Props.SERVER_POLL_INTERVAL);   
 }
