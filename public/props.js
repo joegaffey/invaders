@@ -3,11 +3,12 @@ var Props = {};
 Props.SERVER_AVAILABLE = false;
 Props.SERVER_POLL_INTERVAL = 3000;
 
-Props.PLAYER_LIVES = 1;
+Props.PLAYER_LIVES = 3;
 
 Props.STAGE_RATIO = 4 / 3;
 Props.STAGE_HRES = 800;
 Props.STAGE_VRES = 600;
+Props.STAGE_VERT_OFFSET = 0;
 
 Props.DEATH_MESSAGE = 'Game over Man! Game Over!';
 Props.SUCCESS_MESSAGE = 'You have saved the planet!';
