@@ -1,8 +1,6 @@
 body {
   background-color: #000000;
   background-image: url("https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fearth.jpg?1499722602307");
-  background-attachment: fixed;
-  background-position: center; 
   background-size:cover;
   background-repeat:no-repeat;
   overflow: hidden;
