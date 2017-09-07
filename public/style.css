@@ -12,14 +12,17 @@ body {
 }
 
 .graphicsCanvas {
-  width: 100%;
-  margin-top: -40px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 
 .graphicsCanvas > canvas {
   display: block;
   margin: 0 auto;
-}
+} 
 
 /*********************** Controls styles *************************/
 
