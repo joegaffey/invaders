@@ -12,14 +12,19 @@ body {
 }
 
 .graphicsCanvas {
-  width: 100%;
-  margin-top: -40px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 
 .graphicsCanvas > canvas {
   display: block;
   margin: 0 auto;
-}
+} 
+
+/*********************** Controls styles *************************/
 
 .controls {
   display: none;
@@ -88,6 +93,8 @@ body {
   background-color: #ff0000;
 }
 
+/******************** Modal styles ******************************/
+
 .modal {
   position: fixed; 
   z-index: 1; 
@@ -129,6 +136,9 @@ th {
 td {
   padding-right: 20px;
 }
+
+
+/******************** Info bar styles ***********************/
 
 .info-bar {
   height: 40px;

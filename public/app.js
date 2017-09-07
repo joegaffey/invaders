@@ -22,20 +22,19 @@ app.pause = function() {
 var graphicsCanvas = document.querySelector('.graphicsCanvas');
 graphicsCanvas.appendChild(app.view);
 
-function setSize() {    
-  var w = window.innerWidth;    
-  var h = window.innerHeight;     
-  if(w >= h) {
-    app.renderer.view.style.width = h * Props.STAGE_RATIO + 'px';
-    app.renderer.view.style.height = h + 'px';     
-  }
-  else {
+function resize() {
+    if (window.innerWidth / window.innerHeight >= Props.STAGE_RATIO) {
+        var w = window.innerHeight * Props.STAGE_RATIO;
+        var h = window.innerHeight;
+    } else {
+        var w = window.innerWidth;
+        var h = window.innerWidth / Props.STAGE_RATIO;
+    }
     app.renderer.view.style.width = w + 'px';
-    app.renderer.view.style.height = w / Props.STAGE_RATIO + 'px';     
-  }
+    app.renderer.view.style.height = h - Props.STAGE_VERT_OFFSET + 'px';
 }
-setSize();
-window.onresize = setSize;
+window.onresize = resize;
+resize();
 
 var ship = new Ship();    
 var mother = new Mother(); 
