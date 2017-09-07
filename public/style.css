@@ -21,6 +21,8 @@ body {
   margin: 0 auto;
 }
 
+/*********************** Controls styles *************************/
+
 .controls {
   display: none;
   opacity: 0.5;
@@ -88,6 +90,8 @@ body {
   background-color: #ff0000;
 }
 
+/******************** Modal styles ******************************/
+
 .modal {
   position: fixed; 
   z-index: 1; 
@@ -129,6 +133,9 @@ th {
 td {
   padding-right: 20px;
 }
+
+
+/******************** Info bar styles ***********************/
 
 .info-bar {
   height: 40px;
