@@ -64,7 +64,9 @@ class Assist extends PIXI.Sprite {
         this.target.explode();
       this.target = null;
       this.killCount--;
-      if(this.killCount <= 0 || swarm.enemyCount <= 0) 
+      if(swarm.enemyCount <= 0)
+        this.killCount = 0;
+      if(this.killCount <= 0) 
         this.exit();          
     }
   }
@@ -92,7 +94,7 @@ class Assist extends PIXI.Sprite {
       return;
     this.size += Props.ASSIST_APPEAR_RATE;
     this.scale.x = this.scale.y = this.size;
-    if(this.size >= 1) {
+    if(this.size >= Props.ASSIST_MAX_SCALE) {
       this.ready = true;
       this.entering = false;
     }

@@ -1,6 +1,7 @@
 class Mother extends PIXI.Sprite {
   constructor() {
-    super(GameGraphics.getMotherGraphics());
+    super(PIXI.Texture.fromImage('mothership.svg', undefined, undefined, 0.1));
+    this.tint = 0xFF0000;
     this.x = app.renderer.width / 2;
     this.y = 40;
     this.anchor.x = 0.5;
