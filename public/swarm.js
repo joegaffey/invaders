@@ -68,8 +68,10 @@ class Swarm {
     this.xPos -= Props.SWARM_H_STEP;   
     this.xShift--;
     this.enemies.forEach(function(enemy, i) {
-      if(enemy && enemy.inPosition)
-         enemy.position.x = this.getEnemyXByIndex(i);
+      if(enemy && enemy.inPosition) {
+        enemy.swapTexture();
+        enemy.position.x = this.getEnemyXByIndex(i);
+      }
     }.bind(this));
   }
 
@@ -77,8 +79,10 @@ class Swarm {
     this.xPos += Props.SWARM_H_STEP;   
     this.xShift++;
     this.enemies.forEach(function(enemy, i) {
-      if(enemy && enemy.inPosition)
+      if(enemy && enemy.inPosition) {
+        enemy.swapTexture();
         enemy.position.x = this.getEnemyXByIndex(i);
+      }
     }.bind(this));
   } 
   

@@ -1,6 +1,7 @@
 class Enemy extends PIXI.Sprite {
   constructor() {
-    super(GameGraphics.getEnemyGraphics());
+    super(Enemy.textures[0]);
+    this.currentTexture = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.hits = 0;
@@ -17,6 +18,14 @@ class Enemy extends PIXI.Sprite {
       this.scale.y = 1 - (this.hits * Props.ENEMY_DECAY_RATE);  
     }.bind(this));
     this.ticker.start();
+  }
+  
+  swapTexture() {
+    if(this.currentTexture === 0)
+      this.currentTexture = 1;
+    else 
+      this.currentTexture = 0;
+    this.setTexture(Enemy.textures[this.currentTexture]);
   }
   
   moveToStartPosition() {
@@ -98,3 +107,7 @@ class Enemy extends PIXI.Sprite {
     app.stage.addChild(bullet);
   }
 }
+
+Enemy.textures = [PIXI.Texture.fromImage('invader1.svg', undefined, undefined, 0.06),
+                  PIXI.Texture.fromImage('invader2.svg', undefined, undefined, 0.06)];
+    
