@@ -98,9 +98,10 @@ class Ship extends PIXI.Sprite {
   
   checkPillHit(pill) {
     if(isIntersecting(pill, this)) {
-      assist.destroy(pill.power);
+      assist.destroyEnemies(pill.power);
       pill.ticker.stop();
       pill.destroy(); 
+      app.addScore(Props.PILL_COLLECT_POINTS);
       return;
     }
   }

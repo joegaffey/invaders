@@ -31,6 +31,7 @@ app.get('/games', function(req, res) {
 });
 
 app.post('/games', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var game = req.body
   game.id = games.length;
   game.invaders = [];
@@ -43,6 +44,7 @@ app.post('/games', function(req, res) {
 });
 
 app.delete('/games', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   games = [];
   res.send('OK');
 });
@@ -65,6 +67,7 @@ app.get('/games/:id', function(req, res) {
 });
 
 app.delete('/games/:id', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -95,6 +98,7 @@ app.get('/games/:id/invaders/count', function(req, res) {
 });
 
 app.get('/games/:id/new-invaders/count', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -103,6 +107,7 @@ app.get('/games/:id/new-invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/invaders/count', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -118,6 +123,7 @@ app.put('/games/:id/invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/new-invaders/count', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -132,6 +138,7 @@ app.put('/games/:id/new-invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/destroyed-invaders/count', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -144,6 +151,7 @@ app.put('/games/:id/destroyed-invaders/count', function(req, res) {
 });
 
 app.post('/games/:id/invaders', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -155,6 +163,7 @@ app.post('/games/:id/invaders', function(req, res) {
 });
 
 app.post('/games/:id/pills', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -166,6 +175,7 @@ app.post('/games/:id/pills', function(req, res) {
 });
 
 app.delete('/games/:gid/invaders/:iid', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.gid;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -177,6 +187,7 @@ app.delete('/games/:gid/invaders/:iid', function(req, res) {
 });
 
 app.delete('/games/:id/invaders', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length -1;
