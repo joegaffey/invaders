@@ -48,6 +48,13 @@ app.delete('/games', function(req, res) {
 });
 
 app.get('/games/:id', function(req, res) {
+  if(games.length === 0) {
+    var error = {};
+    error.code = 404;
+    error.message = 'No games found';
+    res.status(404).send(error);
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
