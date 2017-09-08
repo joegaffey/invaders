@@ -1,6 +1,6 @@
 var Props = {};
 
-Props.SERVER_AVAILABLE = false;
+Props.SERVER_AVAILABLE = true;
 Props.SERVER_POLL_INTERVAL = 3000;
 
 Props.PLAYER_LIVES = 3;
@@ -75,7 +75,7 @@ Props.EXPLOSION_LARGE = 1;
 Props.EXPLOSION_HUGE = 5;
 Props.EXPLOSION_SCALE = 0.2;
 
-Props.PILL_SCALE = 0.08;
+Props.PILL_SCALE = 0.05;
 Props.PILL_SPEED = 3;
 Props.PILL_POWER = 5;
 
