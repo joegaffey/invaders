@@ -35,6 +35,8 @@ app.post('/games', function(req, res) {
   game.id = games.length;
   game.invaders = [];
   game.newInvaders = [];
+  game.newPills = [];
+  game.pills = [];
   game.destroyedInvaders = [];
   games.push(game);
   res.send(game);
@@ -52,6 +54,7 @@ app.get('/games/:id', function(req, res) {
   res.send(games[gameId]);
   games[gameId].newInvaders = [];
   games[gameId].destroyedInvaders = [];
+  games[gameId].newPills = [];
 });
 
 app.delete('/games/:id', function(req, res) {
@@ -142,6 +145,17 @@ app.post('/games/:id/invaders', function(req, res) {
   games[gameId].invaders.push(req.body);
   games[gameId].newInvaders.push(req.body);
   res.send(invader);
+});
+
+app.post('/games/:id/pills', function(req, res) {
+  var gameId = req.params.id;
+  if(gameId === 'latest')
+    gameId = games.length - 1;
+  var pill = req.body;
+  pill.id = games[gameId].pills.length;
+  games[gameId].pills.push(req.body);
+  games[gameId].newPills.push(req.body);
+  res.send(pill);
 });
 
 app.delete('/games/:gid/invaders/:iid', function(req, res) {

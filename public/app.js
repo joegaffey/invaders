@@ -87,6 +87,8 @@ if(Props.SERVER_AVAILABLE) {
     }).then(function(data) {
       for(var i = 0; i < data.newInvaders.length; i++)
         swarm.addEnemy();
+      for(var i = 0; i < data.newPills.length; i++)
+        mother.addPill(data.newPills[i].power);
       assist.destroy(data.destroyedInvaders.length);
     });
   }, Props.SERVER_POLL_INTERVAL);   
