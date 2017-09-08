@@ -56,6 +56,8 @@ Props.MOTHER_SHOOT_INTERVAL = 2000;
 Props.MOTHER_SPEED = 1;
 Props.MOTHER_KILL_POINTS = 500;
 Props.MOTHER_HIT_POINTS = 50;
+Props.MOTHER_SCALE = 0.15;
+Props.MOTHER_PILL_HITS = 10;
 
 Props.ASSIST_LAZER_DURATION = 10;
 Props.ASSIST_LAZER_WIDTH = 3;
@@ -72,6 +74,10 @@ Props.EXPLOSION_MEDIUM = 0.5;
 Props.EXPLOSION_LARGE = 1;
 Props.EXPLOSION_HUGE = 5;
 Props.EXPLOSION_SCALE = 0.2;
+
+Props.PILL_SCALE = 0.08;
+Props.PILL_SPEED = 3;
+Props.PILL_POWER = 5;
 
 if (typeof module !== 'undefined' && module.exports) 
   module.exports.props = Props;

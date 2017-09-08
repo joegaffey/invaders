@@ -1,6 +1,6 @@
 class Mother extends PIXI.Sprite {
   constructor() {
-    super(PIXI.Texture.fromImage('mothership.svg', undefined, undefined, 0.1));
+    super(PIXI.Texture.fromImage('mothership.svg', undefined, undefined, Props.MOTHER_SCALE));
     this.tint = 0xFF0000;
     this.x = app.renderer.width / 2;
     this.y = 40;
@@ -25,6 +25,8 @@ class Mother extends PIXI.Sprite {
   hit() {
     GameAudio.motherHitSound();
     this.hits++;
+    if(this.hits % Props.MOTHER_PILL_HITS === 0)
+      this.addPill(Props.PILL_POWER);
     if(this.hits === Props.MOTHER_MAX_HITS) {
       this.ticker.stop();
       GameAudio.explosionSound();
@@ -85,6 +87,31 @@ class Mother extends PIXI.Sprite {
     });
     bullet.ticker.start();
     app.stage.addChild(bullet);
+  }
+  
+  addPill(power) {    
+    var pill = new PIXI.Sprite(PIXI.Texture.fromImage('pill.svg', undefined, undefined, Props.PILL_SCALE));
+    pill.x = this.x;
+    pill.y = this.y;
+    pill.anchor.x = 0.5;
+    pill.anchor.y = 0.5;
+    pill.power = power;
+    pill.speed = Props.PILL_SPEED;
+    pill.ticker = new PIXI.ticker.Ticker();
+    pill.ticker.add(function() {
+      if(app.paused)
+         return;
+      pill.y += pill.speed;
+      if(pill.y > app.renderer.height) {
+        pill.ticker.stop();
+        pill.destroy();
+      }
+      else {
+        ship.checkPillHit(pill);
+      }
+    });
+    pill.ticker.start();
+    app.stage.addChild(pill);
   }
   
   reset() {
