@@ -92,8 +92,7 @@ if(Props.SERVER_AVAILABLE) {
   }, Props.SERVER_POLL_INTERVAL);   
 }
 else {
-  for(var i = 0; i < Props.SWARM_INITIAL_SIZE; i++) 
-    swarm.addEnemy();
+  swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
 }
 
 app.reset = function() {
@@ -105,6 +104,7 @@ app.reset = function() {
   swarm.reset();
   ship.reset();
   app.updateScore(0);
+  swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
 }
 
 app.showDialog = function(message) {

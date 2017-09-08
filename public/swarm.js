@@ -28,6 +28,11 @@ class Swarm {
     }
   }
   
+  addEnemies(n) {
+    for(var i = 0; i < n; i++) 
+      this.addEnemy();
+  }
+  
   destroyEnemy(i) {
     this.enemies[i].explode();
   }
