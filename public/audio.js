@@ -13,7 +13,8 @@ function initAudio() {
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2FextraShip.wav?1501607283115',
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fufo_highpitch.wav?1499375910630',
       'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fexplosion.wav?1499375911491',
-      'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fsound-frogger-hop.wav?1501606884861'
+      'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fsound-frogger-hop.wav?1501606884861',
+      'https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fpacman_eatghost.wav?1504903948517'
     
       // './assets/shoot.wav',
       // './assets/fastinvader1.wav',
@@ -21,6 +22,7 @@ function initAudio() {
       // './assets/ufo_highpitch.wav',
       // './assets/explosion.wav',
       // './assets/sound-frogger-hop.wav'      
+      // './assets/pacman_eatghost.wav'
     ],
     GameAudio.finishedLoading);
   bufferLoader.load();
@@ -52,6 +54,10 @@ GameAudio.cellHitSound = function() {
 
 GameAudio.explosionSound = function() {
   GameAudio.playSound(4, 1);
+}
+
+GameAudio.assistSound = function() {
+  GameAudio.playSound(6, 1);
 }
 
 GameAudio.playSound = function(i, gain) {

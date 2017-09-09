@@ -5,7 +5,7 @@ class Grid {
   }
 
   getCell(x, y) {    
-    var cell = new PIXI.Sprite(GameGraphics.getCellGraphics());
+    var cell = new PIXI.Sprite(PIXI.Texture.fromImage('cell.svg', undefined, undefined, 0.11));
     cell.x = x;
     cell.y = y;
     cell.anchor.x = 0.5;
@@ -32,8 +32,7 @@ class Grid {
     
     cell.updateCell = function() {
       cell.scale.x = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
-      cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE);  
-      cell.tint = Props.CELL_TINTS[cell.hits];
+      cell.scale.y = 1 - (cell.hits * Props.CELL_DECAY_RATE); 
     };
     
     cell.addEnergy = function() {

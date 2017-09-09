@@ -35,7 +35,7 @@ class Assist extends PIXI.Sprite {
       return;
     }
     
-    if(this.killCount <= 0 || swarm.enemyCount <= 0)
+    if(this.killCount <= 0)
       return;
     
     if(!this.ready) {
@@ -44,38 +44,66 @@ class Assist extends PIXI.Sprite {
     }
 
     if(this.ready && !this.target) {
-      this.target = swarm.getRandomEnemy();
+      if(swarm.enemyCount > 0)
+        this.target = swarm.getRandomEnemy();
+      else if(mother)
+        this.target = mother;
       if(this.target)
-        this.target.power = Props.ASSIST_LAZER_DURATION;
+         this.target.power = Props.ASSIST_LAZER_DURATION;
+      else
+        this.exit;
       return;
     }      
 
     if(this.ready && this.target && this.target.power > 0) {
-      this.lazer.moveTo(this.x, this.y);
-      this.lazer.lineTo(this.target.x, this.target.y);    
-      this.target.power--;
+      try {
+        this.lazer.moveTo(this.x, this.y);
+        this.lazer.lineTo(this.target.x, this.target.y);    
+        this.target.power--;
+      }
+      catch(e) {
+        this.lazer.clear();
+        this.lazer.lineStyle(Props.ASSIST_LAZER_WIDTH, Props.ASSIST_LAZER_COLOR);
+        console.log(e);
+      }
       return;
     }
 
     if(this.ready && this.target && this.target.power <= 0) {
       this.lazer.clear();
       this.lazer.lineStyle(Props.ASSIST_LAZER_WIDTH, Props.ASSIST_LAZER_COLOR);
-      if(this.target)
-        this.target.explode();
+      if(this.target) {
+        if(this.target === mother)
+          mother.hit();
+        else {
+          this.target.explode();
+          app.addScore(Props.ENEMY_KILL_POINTS);
+        }
+      }
       this.target = null;
       this.killCount--;
-      if(swarm.enemyCount <= 0)
-        this.killCount = 0;
       if(this.killCount <= 0) 
         this.exit();          
     }
   }
   
-  destroy(count) {  
+  destroyEnemies(count) {  
     this.killCount += count;
   }
   
+  reset() {
+    this.killCount = 0;
+    this.ready = false;
+    this.entering = false;
+    this.exiting = false;
+    this.size = 0;
+    app.stage.removeChild(this);
+    this.lazer.clear();
+    this.lazer.lineStyle(Props.ASSIST_LAZER_WIDTH, Props.ASSIST_LAZER_COLOR);
+  }
+  
   enter() {
+    GameAudio.assistSound();
     this.entering = true;
     let sides = [Props.ASSIST_X_PAD, Props.STAGE_HRES - Props.ASSIST_X_PAD];
     this.x = sides[Math.round(Math.random() * 1)];
@@ -85,6 +113,8 @@ class Assist extends PIXI.Sprite {
   }
   
   exit() {
+    this.killCount = 0;
+    GameAudio.assistSound();
     this.exiting = true;
     this.ready = false;
   }

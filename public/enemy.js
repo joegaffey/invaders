@@ -58,7 +58,7 @@ class Enemy extends PIXI.Sprite {
     swarm.enemyCount--;
     swarm.enemies[this.index] = null;
     GameAudio.explosionSound();
-    Effects.explode(this.x, this.y, Props.EXPLOSION_SMALL);
+    Effects.explode(this.x, this.y, Props.EXPLOSION_MEDIUM);
     this.ticker.stop();
     this.destroy();
     if(swarm.enemyCount === 0 && !mother)

@@ -89,7 +89,7 @@ if(Props.SERVER_AVAILABLE) {
         swarm.addEnemy();
       for(var i = 0; i < data.newPills.length; i++)
         mother.addPill(data.newPills[i].power);
-      assist.destroy(data.destroyedInvaders.length);
+      assist.destroyEnemies(data.destroyedInvaders.length);
     });
   }, Props.SERVER_POLL_INTERVAL);   
 }
@@ -105,6 +105,7 @@ app.reset = function() {
   mother = new Mother();
   swarm.reset();
   ship.reset();
+  assist.reset();
   app.updateScore(0);
   swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
 }

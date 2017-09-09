@@ -1,6 +1,8 @@
 class Ship extends PIXI.Sprite {
   constructor() {    
-    super(GameGraphics.getShipGraphics());
+    super(PIXI.Texture.fromImage('big-ship.svg', undefined, undefined, 0.11));
+    this.tint = 0x44AAFF;
+    
     this.x = Props.STAGE_HRES / 2;
     this.y = Props.STAGE_VRES - Props.SHIP_VERT_ADJUST;
     this.anchor.x = 0.5;
@@ -98,9 +100,10 @@ class Ship extends PIXI.Sprite {
   
   checkPillHit(pill) {
     if(isIntersecting(pill, this)) {
-      assist.destroy(pill.power);
+      assist.destroyEnemies(pill.power);
       pill.ticker.stop();
       pill.destroy(); 
+      app.addScore(Props.PILL_COLLECT_POINTS);
       return;
     }
   }
