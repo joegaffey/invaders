@@ -56,9 +56,16 @@ class Assist extends PIXI.Sprite {
     }      
 
     if(this.ready && this.target && this.target.power > 0) {
-      this.lazer.moveTo(this.x, this.y);
-      this.lazer.lineTo(this.target.x, this.target.y);    
-      this.target.power--;
+      try {
+        this.lazer.moveTo(this.x, this.y);
+        this.lazer.lineTo(this.target.x, this.target.y);    
+        this.target.power--;
+      }
+      catch(e) {
+        this.lazer.clear();
+        this.lazer.lineStyle(Props.ASSIST_LAZER_WIDTH, Props.ASSIST_LAZER_COLOR);
+        console.log(e);
+      }
       return;
     }
 

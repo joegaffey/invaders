@@ -2,14 +2,14 @@ Effects = {};
 Effects.explosionTextures = [];
 
 Effects.onAssetsLoaded = function() {
-  for (var i = 0; i < 26; i++) {
-       var texture = PIXI.Texture.fromFrame('Explosion_Sequence_A ' + (i+1) + '.png');
-       Effects.explosionTextures.push(texture);
+  for (var i = 0; i < 13; i++) {
+    var texture = PIXI.Texture.fromFrame('Explosion_Sequence_A ' + (i+1) + '.png');
+    Effects.explosionTextures.push(texture);
   }
 }
 
 PIXI.loader
-    .add('spritesheet', 'mc.json')
+    .add('spritesheet', 'explosion-sprites.json')
     .load(Effects.onAssetsLoaded);
 
 Effects.explode = function(x, y, size) {
@@ -17,7 +17,7 @@ Effects.explode = function(x, y, size) {
   explosion.x = x;
   explosion.y = y;
   explosion.loop = false;
-  explosion.animationSpeed = 1;
+  explosion.animationSpeed = Props.EXPLOSION_SPEED;
   explosion.onComplete = explosion.destroy;
   explosion.anchor.set(0.5);
   explosion.rotation = Math.random() * Math.PI;
