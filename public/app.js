@@ -70,31 +70,54 @@ if(Props.SERVER_AVAILABLE) {
     Props = data.props;
   });
   
-  fetch('/games', {
-      method: "POST",
-      body: JSON.stringify({})
-  })
-  .then(function(res){ return res.json(); })
-  .then(function(data){ app.game = data; });
+  var init = {
+    method: "POST",
+    body: JSON.stringify({})
+  }
+  var request = new Request('/games/', init);  
+  fetch(request)
+    .then(function(res){ return res.json(); })
+    .then(function(data){ 
+      app.game = data; 
+  });
   
   setInterval(function() { 
     if(app.paused)
       return;
     if(!app.game)
       return;
-    fetch('/games/' + app.game.id).then(function(response) {
+    
+    var request = new Request('/games/' + app.game.id);  
+    fetch(request).then(function(response) {
       return response.json();
     }).then(function(data) {
+      app.game = data;
       for(var i = 0; i < data.newInvaders.length; i++)
         swarm.addEnemy();
       for(var i = 0; i < data.newPills.length; i++)
         mother.addPill(data.newPills[i].power);
       assist.destroyEnemies(data.destroyedInvaders.length);
+    }).then(function() {
+      sendInvaderCount();
     });
   }, Props.SERVER_POLL_INTERVAL);   
 }
 else {
   swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
+}
+
+function sendInvaderCount() {
+  var data = {};
+  data.count = swarm.enemyCount;
+  var headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  var init = {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: headers
+  };
+  var request = new Request('/games/' + app.game.id + '/invaders/count', init);  
+  fetch(request);
 }
 
 app.reset = function() {

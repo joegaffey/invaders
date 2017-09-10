@@ -107,12 +107,11 @@ app.get('/games/:id/new-invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/invaders/count', function(req, res) {
-  console.log(req.method + ' ' + req.path);
+  console.log(req.method + ' ' + req.path + ' ' + req.body.count);
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
   games[gameId].invaders = [];
-  games[gameId].newInvaders = [];  
   var count = req.body.count;
   for(var i = 0; i < count; i++) {
     var invader = {};
