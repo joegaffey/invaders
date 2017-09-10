@@ -2,7 +2,7 @@ body {
   background-color: #000000;
 /*   background-image: url("./assets/earth.jpg"); */
   background-image: url("https://cdn.glitch.com/1e654918-0ade-40b8-9a8e-674df6feb199%2Fearth.jpg?1499722602307");
-  background-size: cover !important;
+  background-size: 100% auto;
   background-repeat:no-repeat;
   overflow: hidden;
   padding: 0;
