@@ -51,10 +51,7 @@ app.delete('/games', function(req, res) {
 
 app.get('/games/:id', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -69,10 +66,7 @@ app.get('/games/:id', function(req, res) {
 app.delete('/games/:id', function(req, res) {
   console.log(req.method + ' ' + req.path);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -84,10 +78,7 @@ app.delete('/games/:id', function(req, res) {
 
 app.get('/games/:id/invaders', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -98,10 +89,7 @@ app.get('/games/:id/invaders', function(req, res) {
 
 app.get('/games/:id/new-invaders', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -113,10 +101,7 @@ app.get('/games/:id/new-invaders', function(req, res) {
 
 app.get('/games/:id/invaders/count', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -127,10 +112,7 @@ app.get('/games/:id/invaders/count', function(req, res) {
 
 app.get('/games/:id/new-invaders/count', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -143,11 +125,7 @@ app.get('/games/:id/new-invaders/count', function(req, res) {
 app.put('/games/:id/invaders/count', function(req, res) {
   // console.log(req.method + ' ' + req.path + ' ' + req.body.count);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(error.code).send(error);
-    console.log(error.code + ' ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -166,11 +144,7 @@ app.put('/games/:id/invaders/count', function(req, res) {
 app.put('/games/:id/new-invaders/count', function(req, res) {
   console.log(req.method + ' ' + req.path + ' ' + req.body.count);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(error.code).send(error);
-    console.log(error.code + ' ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -189,11 +163,7 @@ app.put('/games/:id/new-invaders/count', function(req, res) {
 app.put('/games/:id/destroyed-invaders/count', function(req, res) {
   console.log(req.method + ' ' + req.path + ' ' + req.body.count);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(error.code).send(error);
-    console.log(error.code + ' ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -210,11 +180,7 @@ app.put('/games/:id/destroyed-invaders/count', function(req, res) {
 app.post('/games/:id/invaders', function(req, res) {
   console.log(req.method + ' ' + req.path);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(error.code).send(error);
-    console.log(error.code + ' ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -230,11 +196,7 @@ app.post('/games/:id/invaders', function(req, res) {
 app.post('/games/:id/pills', function(req, res) {
   console.log(req.method + ' ' + req.path);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
-    console.log('404 ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -250,11 +212,7 @@ app.post('/games/:id/pills', function(req, res) {
 app.delete('/games/:gid/invaders/:iid', function(req, res) {
   console.log(req.method + ' ' + req.path);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
-    console.log('404 ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.gid;
@@ -270,11 +228,7 @@ app.delete('/games/:gid/invaders/:iid', function(req, res) {
 app.delete('/games/:id/invaders', function(req, res) {
   console.log(req.method + ' ' + req.path);
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
-    console.log('404 ' + error.message);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;

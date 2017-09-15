@@ -30,14 +30,7 @@ class Mother extends PIXI.Sprite {
     if(!Props.SERVER_AVAILABLE && this.hits % Props.MOTHER_PILL_HITS === 0)
       this.addPill(Props.PILL_POWER);
     if(this.hits === Props.MOTHER_MAX_HITS) {
-      this.ticker.stop();
-      GameAudio.explosionSound();
-      Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
-      app.addScore(Props.MOTHER_KILL_POINTS);
-      if(swarm.enemyCount === 0)
-        app.stop(Props.SUCCESS_MESSAGE);
-      this.destroy(); 
-      mother = null;
+      this.explode();
     }
     else
       app.addScore(Props.MOTHER_HIT_POINTS);
@@ -45,6 +38,17 @@ class Mother extends PIXI.Sprite {
   
   shoot() {
     this.addBullet(this.x, this.y + this.height / 2);
+  }
+  
+  explode() {
+    this.ticker.stop();
+    GameAudio.explosionSound();
+    Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
+    app.addScore(Props.MOTHER_KILL_POINTS);
+    if(swarm.enemyCount === 0)
+      app.stop(Props.SUCCESS_MESSAGE);
+    this.destroy(); 
+    mother = null;
   }
   
   checkHit(bullet) {

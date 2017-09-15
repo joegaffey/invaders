@@ -12,6 +12,8 @@ class Swarm {
   }
   
   addEnemy() {
+    if(!mother)
+      return;
     for(var i  = 0; i < this.enemies.length + 1; i++) {
       if(!this.enemies[i]) {
         var enemy = new Enemy();
