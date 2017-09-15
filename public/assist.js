@@ -45,7 +45,7 @@ class Assist extends PIXI.Sprite {
 
     if(this.ready && !this.target) {
       if(swarm.enemyCount > 0)
-        this.target = swarm.getRandomEnemy();
+        this.target = swarm.getLowestEnemy();
       else if(mother)
         this.target = mother;
       if(this.target)
@@ -64,6 +64,7 @@ class Assist extends PIXI.Sprite {
       catch(e) {
         this.lazer.clear();
         this.lazer.lineStyle(Props.ASSIST_LAZER_WIDTH, Props.ASSIST_LAZER_COLOR);
+        this.target = null;
         console.log(e);
       }
       return;

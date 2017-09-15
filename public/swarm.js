@@ -12,6 +12,8 @@ class Swarm {
   }
   
   addEnemy() {
+    if(!mother)
+      return;
     for(var i  = 0; i < this.enemies.length + 1; i++) {
       if(!this.enemies[i]) {
         var enemy = new Enemy();
@@ -99,6 +101,16 @@ class Swarm {
       if(i > this.enemies.length)
         return null;
       enemy = this.enemies[Math.floor(Math.random() * this.enemies.length)];
+    }
+    return enemy;
+  }
+
+  getLowestEnemy() {
+    let enemy = null;
+    let i = this.enemyCount;
+    while(!enemy && i >= -1) {
+      enemy = this.enemies[i];
+      i--;
     }
     return enemy;
   }

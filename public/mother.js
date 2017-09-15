@@ -8,9 +8,11 @@ class Mother extends PIXI.Sprite {
     this.anchor.y = 0.5;
     this.hits = 0;
     this.direction = 1;
+    this.pillTimeout = Props.PILL_DELAY;
     this.ticker = new PIXI.ticker.Ticker();
     this.ticker.add(function() {
       if(!app.paused) {
+        this.pillTimeout++;
         this.x += this.direction * Props.MOTHER_SPEED;
         if(this.x > Props.STAGE_HRES - this.width /2)
           this.direction = -1;
@@ -25,17 +27,10 @@ class Mother extends PIXI.Sprite {
   hit() {
     GameAudio.motherHitSound();
     this.hits++;
-    if(this.hits % Props.MOTHER_PILL_HITS === 0)
+    if(!Props.SERVER_AVAILABLE && this.hits % Props.MOTHER_PILL_HITS === 0)
       this.addPill(Props.PILL_POWER);
     if(this.hits === Props.MOTHER_MAX_HITS) {
-      this.ticker.stop();
-      GameAudio.explosionSound();
-      Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
-      app.addScore(Props.MOTHER_KILL_POINTS);
-      if(swarm.enemyCount === 0)
-        app.stop(Props.SUCCESS_MESSAGE);
-      this.destroy(); 
-      mother = null;
+      this.explode();
     }
     else
       app.addScore(Props.MOTHER_HIT_POINTS);
@@ -43,6 +38,17 @@ class Mother extends PIXI.Sprite {
   
   shoot() {
     this.addBullet(this.x, this.y + this.height / 2);
+  }
+  
+  explode() {
+    this.ticker.stop();
+    GameAudio.explosionSound();
+    Effects.explode(this.x, this.y, Props.EXPLOSION_HUGE);
+    app.addScore(Props.MOTHER_KILL_POINTS);
+    if(swarm.enemyCount === 0)
+      app.stop(Props.SUCCESS_MESSAGE);
+    this.destroy(); 
+    mother = null;
   }
   
   checkHit(bullet) {
@@ -90,6 +96,9 @@ class Mother extends PIXI.Sprite {
   }
   
   addPill(power) {    
+    if(this.pillTimeout <= Props.PILL_DELAY)
+      return;
+    this.pillTimeout = 0;
     var pill = new PIXI.Sprite(PIXI.Texture.fromImage('pill.svg', undefined, undefined, Props.PILL_SCALE));
     pill.x = this.x;
     pill.y = this.y;

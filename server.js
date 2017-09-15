@@ -51,10 +51,7 @@ app.delete('/games', function(req, res) {
 
 app.get('/games/:id', function(req, res) {
   if(games.length === 0) {
-    var error = {};
-    error.code = 404;
-    error.message = 'No games found';
-    res.status(404).send(error);
+    res.status(404).send({ code: 404, message: "No games found"});  
     return;
   }
   var gameId = req.params.id;
@@ -68,6 +65,10 @@ app.get('/games/:id', function(req, res) {
 
 app.delete('/games/:id', function(req, res) {
   console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -76,6 +77,10 @@ app.delete('/games/:id', function(req, res) {
 });
 
 app.get('/games/:id/invaders', function(req, res) {
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -83,6 +88,10 @@ app.get('/games/:id/invaders', function(req, res) {
 });
 
 app.get('/games/:id/new-invaders', function(req, res) {
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -91,6 +100,10 @@ app.get('/games/:id/new-invaders', function(req, res) {
 });
 
 app.get('/games/:id/invaders/count', function(req, res) {
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -98,7 +111,10 @@ app.get('/games/:id/invaders/count', function(req, res) {
 });
 
 app.get('/games/:id/new-invaders/count', function(req, res) {
-  console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -107,7 +123,11 @@ app.get('/games/:id/new-invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/invaders/count', function(req, res) {
-  console.log(req.method + ' ' + req.path + ' ' + req.body.count);
+  // console.log(req.method + ' ' + req.path + ' ' + req.body.count);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -122,7 +142,11 @@ app.put('/games/:id/invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/new-invaders/count', function(req, res) {
-  console.log(req.method + ' ' + req.path);
+  console.log(req.method + ' ' + req.path + ' ' + req.body.count);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -137,7 +161,11 @@ app.put('/games/:id/new-invaders/count', function(req, res) {
 });
 
 app.put('/games/:id/destroyed-invaders/count', function(req, res) {
-  console.log(req.method + ' ' + req.path);
+  console.log(req.method + ' ' + req.path + ' ' + req.body.count);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -151,6 +179,10 @@ app.put('/games/:id/destroyed-invaders/count', function(req, res) {
 
 app.post('/games/:id/invaders', function(req, res) {
   console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -163,6 +195,10 @@ app.post('/games/:id/invaders', function(req, res) {
 
 app.post('/games/:id/pills', function(req, res) {
   console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -175,6 +211,10 @@ app.post('/games/:id/pills', function(req, res) {
 
 app.delete('/games/:gid/invaders/:iid', function(req, res) {
   console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.gid;
   if(gameId === 'latest')
     gameId = games.length - 1;
@@ -187,6 +227,10 @@ app.delete('/games/:gid/invaders/:iid', function(req, res) {
 
 app.delete('/games/:id/invaders', function(req, res) {
   console.log(req.method + ' ' + req.path);
+  if(games.length === 0) {
+    res.status(404).send({ code: 404, message: "No games found"});  
+    return;
+  }
   var gameId = req.params.id;
   if(gameId === 'latest')
     gameId = games.length -1;
@@ -198,6 +242,7 @@ app.delete('/games/:id/invaders', function(req, res) {
 // Proxy and threshold check for test purposes
 var eventCount = 0;
 app.get('/events/:count', function(req, res) {
+  console.log(req.method + ' ' + req.path);
   var newEventCount = parseInt(req.params.count);
   eventCount += newEventCount;
   if(CHECK_THRESHOLD && eventCount >= EVENTS_THRESHOLD) {  
@@ -219,6 +264,14 @@ app.get('/events/:count', function(req, res) {
 
 app.get('/properties', function(req, res) {
   res.send(props);
+});
+
+app.get('/metrics', function(req, res) {
+  var game = games[games.length - 1];
+  var count = 0;
+  if(game)
+    count = game.invaders.length;
+  res.send('invader_count ' + count + '\n');
 });
 
 app.put('/properties', function(req, res) {

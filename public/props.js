@@ -79,6 +79,7 @@ Props.PILL_SCALE = 0.05;
 Props.PILL_SPEED = 2.5;
 Props.PILL_POWER = 5;
 Props.PILL_COLLECT_POINTS = 100;
+Props.PILL_DELAY = 200;
 
 if (typeof module !== 'undefined' && module.exports) 
   module.exports.props = Props;

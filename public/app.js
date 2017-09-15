@@ -97,8 +97,10 @@ if(Props.SERVER_AVAILABLE) {
       for(var i = 0; i < data.newPills.length; i++)
         mother.addPill(data.newPills[i].power);
       assist.destroyEnemies(data.destroyedInvaders.length);
-    }).then(function() {
-      sendInvaderCount();
+      var count = swarm.enemyCount - data.destroyedInvaders.length;
+      if(count < 0)
+        count = 0;
+      sendInvaderCount(count);
     });
   }, Props.SERVER_POLL_INTERVAL);   
 }
@@ -106,9 +108,9 @@ else {
   swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
 }
 
-function sendInvaderCount() {
+function sendInvaderCount(count) {
   var data = {};
-  data.count = swarm.enemyCount;
+  data.count = count;
   var headers = new Headers();
   headers.append('Content-Type', 'application/json');
   var init = {
@@ -130,7 +132,8 @@ app.reset = function() {
   ship.reset();
   assist.reset();
   app.updateScore(0);
-  swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
+  if(!Props.SERVER_AVAILABLE)
+    swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
 }
 
 app.showDialog = function(message) {
