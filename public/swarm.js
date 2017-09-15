@@ -103,6 +103,16 @@ class Swarm {
     return enemy;
   }
 
+  getLowestEnemy() {
+    let enemy = null;
+    let i = this.enemyCount;
+    while(!enemy && i >= -1) {
+      enemy = this.enemies[i];
+      i--;
+    }
+    return enemy;
+  }
+
   reset() {
     this.enemies.forEach(function(enemy) {
       if(enemy) {
