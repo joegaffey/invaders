@@ -92,6 +92,7 @@ class Ship extends PIXI.Sprite {
   checkHit(bullet) {
     if(isIntersecting(bullet, this)) {
       bullet.ticker.stop();
+      Effects.explode(bullet.x, bullet.y, Props.EXPLOSION_MEDIUM);
       bullet.destroy(); 
       this.hit();
       return;
@@ -118,6 +119,6 @@ class Ship extends PIXI.Sprite {
   hit() {
     GameAudio.explosionSound();
     this.speed = 0;
-    app.stop(Props.DEATH_MESSAGE);
+    lives.dec();
   }
 }

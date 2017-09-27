@@ -41,7 +41,7 @@ var mother = new Mother();
 var swarm = new Swarm();
 var grid = new Grid();
 var assist = new Assist();
-// var lives = new Lives(); 
+var lives = new Lives(); 
 
 setInterval(function() { 
   if(!app.paused)
@@ -131,6 +131,7 @@ app.reset = function() {
   swarm.reset();
   ship.reset();
   assist.reset();
+  lives.reset();
   app.updateScore(0);
   if(!Props.SERVER_AVAILABLE)
     swarm.addEnemies(Props.SWARM_INITIAL_SIZE);
