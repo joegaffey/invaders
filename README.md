@@ -20,6 +20,6 @@ GET game ids at:
 
 [http://invaders-from-space.glitch.me/games](http://invaders-from-space.glitch.me/games)
 
-The app requires a modern browser. I test it (a little) in Chrome (Windows, Android), Firefox (Windows) and Edge. Let me know if you find a bug!
+The app requires a modern browser. I test it (a little) in Chrome (Windows, Android), Firefox (Windows) and Edge. Let me know if you find a [bug](https://github.com/joegaffey/invaders/issues)!
 
 Thanks to those linked above and [Classic Gaming](http://www.classicgaming.cc) for the [sound effects](http://www.classicgaming.cc/classics/space-invaders/sounds)!
